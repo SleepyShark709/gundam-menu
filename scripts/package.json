@@ -1,0 +1,21 @@
+{
+  "name": "gundam-scraper",
+  "version": "1.0.0",
+  "description": "Playwright-based web scraper for Bandai gunpla product pages",
+  "type": "module",
+  "scripts": {
+    "scrape": "tsx src/scraper.ts",
+    "scrape:hg": "tsx src/scraper.ts --series=hg",
+    "scrape:rg": "tsx src/scraper.ts --series=rg",
+    "scrape:mg": "tsx src/scraper.ts --series=mg",
+    "scrape:pg": "tsx src/scraper.ts --series=pg"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
