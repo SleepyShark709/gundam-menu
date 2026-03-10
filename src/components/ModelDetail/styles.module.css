@@ -1,0 +1,195 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Image section */
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  max-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.imageSkeleton {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: var(--radius-lg);
+}
+
+.image {
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  transition: opacity var(--transition-normal);
+}
+
+.imageVisible {
+  opacity: 1;
+}
+
+.imageHidden {
+  opacity: 0;
+  position: absolute;
+}
+
+/* Name section */
+.nameSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.name {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+  margin: 0;
+  font-family: var(--font-family);
+}
+
+.nameEn {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  font-family: var(--font-family);
+  letter-spacing: 0.5px;
+}
+
+/* Info row: badges */
+.infoRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.seriesBadge {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.numberBadge {
+  font-family: monospace;
+}
+
+.limitedBadge {
+  font-weight: 600;
+}
+
+/* Price section */
+.priceSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}
+
+.priceRow {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+}
+
+.priceLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-family);
+  flex-shrink: 0;
+}
+
+.priceJPY {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-accent-primary);
+  font-family: var(--font-family);
+  text-shadow: var(--glow-primary);
+}
+
+.priceCNY {
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+}
+
+.priceTaxFree {
+  font-size: var(--font-size-md);
+  color: var(--color-text-muted);
+  font-family: var(--font-family);
+}
+
+/* Release date */
+.releaseDateRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.releaseDateLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-family: var(--font-family);
+}
+
+.releaseDateValue {
+  font-size: var(--font-size-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-family);
+  font-weight: 500;
+}
+
+/* Tags */
+.tagsSection {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-sm);
+}
+
+.favoriteWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+
+.favoriteLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-family: var(--font-family);
+  letter-spacing: 0.5px;
+}
+
+.productButton {
+  flex: 1;
+}
