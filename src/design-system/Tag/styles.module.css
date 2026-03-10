@@ -1,0 +1,13 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 400;
+  line-height: 1.6;
+  white-space: nowrap;
+  background: rgba(136, 146, 176, 0.08);
+  color: var(--color-text-secondary);
+  border: 1px solid rgba(136, 146, 176, 0.2);
+}

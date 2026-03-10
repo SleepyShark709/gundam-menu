@@ -1,0 +1,42 @@
+.card {
+  position: relative;
+  background: var(--color-bg-card);
+  background-image: var(--gradient-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Metallic gradient border overlay via pseudo-element */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--gradient-border);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.card[role='button'] {
+  cursor: pointer;
+}
+
+.card[role='button']:active {
+  transform: scale(0.98);
+  border-color: var(--color-border-active);
+  box-shadow: var(--glow-primary);
+}
+
+.glowing {
+  border-color: var(--color-border-active);
+  box-shadow: var(--glow-primary);
+}
