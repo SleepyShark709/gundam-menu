@@ -1,0 +1,34 @@
+[
+  {
+    "code": "hg",
+    "name": "High Grade",
+    "shortName": "HG",
+    "scale": "1/144",
+    "coverImage": "",
+    "totalCount": 0
+  },
+  {
+    "code": "rg",
+    "name": "Real Grade",
+    "shortName": "RG",
+    "scale": "1/144",
+    "coverImage": "",
+    "totalCount": 0
+  },
+  {
+    "code": "mg",
+    "name": "Master Grade",
+    "shortName": "MG",
+    "scale": "1/100",
+    "coverImage": "",
+    "totalCount": 0
+  },
+  {
+    "code": "pg",
+    "name": "Perfect Grade",
+    "shortName": "PG",
+    "scale": "1/60",
+    "coverImage": "",
+    "totalCount": 0
+  }
+]
