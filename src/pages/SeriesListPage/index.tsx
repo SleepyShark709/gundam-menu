@@ -234,29 +234,32 @@ export default function SeriesListPage() {
           </div>
         </FilterPanel>
 
-        {/* Result count */}
-        {!loading && !error && (
-          <div className={styles.resultCount}>
-            <span>共 {processedModels.length} 个模型</span>
-          </div>
-        )}
+        {/* Scrollable area */}
+        <div className={styles.scrollArea}>
+          {/* Result count */}
+          {!loading && !error && (
+            <div className={styles.resultCount}>
+              <span>共 {processedModels.length} 个模型</span>
+            </div>
+          )}
 
-        {/* Error state */}
-        {error && (
-          <div className={styles.errorState}>
-            <p className={styles.errorText}>加载失败，请稍后重试</p>
-          </div>
-        )}
+          {/* Error state */}
+          {error && (
+            <div className={styles.errorState}>
+              <p className={styles.errorText}>加载失败，请稍后重试</p>
+            </div>
+          )}
 
-        {/* Model grid */}
-        <ModelGrid
-          models={processedModels}
-          onSelect={handleModelSelect}
-          isFavorite={isFavorite}
-          onToggleFavorite={toggleFavorite}
-          convertToYuan={convertToYuan}
-          loading={loading}
-        />
+          {/* Model grid */}
+          <ModelGrid
+            models={processedModels}
+            onSelect={handleModelSelect}
+            isFavorite={isFavorite}
+            onToggleFavorite={toggleFavorite}
+            convertToYuan={convertToYuan}
+            loading={loading}
+          />
+        </div>
       </div>
 
       {/* Model detail bottom sheet */}

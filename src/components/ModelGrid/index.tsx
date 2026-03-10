@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-import { useVirtualizer } from '@tanstack/react-virtual';
 import type { GundamModel } from '../../types';
 import ModelCard from '../ModelCard';
 import Skeleton from '../../design-system/Skeleton';
@@ -15,9 +13,6 @@ interface ModelGridProps {
 }
 
 const SKELETON_COUNT = 6;
-const ROW_HEIGHT = 280;
-const GAP = 12;
-const COLS = 2;
 
 export default function ModelGrid({
   models,
@@ -27,21 +22,6 @@ export default function ModelGrid({
   convertToYuan,
   loading = false,
 }: ModelGridProps) {
-  const parentRef = useRef<HTMLDivElement>(null);
-
-  // Group models into rows of 2
-  const rows: GundamModel[][] = [];
-  for (let i = 0; i < models.length; i += COLS) {
-    rows.push(models.slice(i, i + COLS));
-  }
-
-  const rowVirtualizer = useVirtualizer({
-    count: rows.length,
-    getScrollElement: () => parentRef.current,
-    estimateSize: () => ROW_HEIGHT + GAP,
-    overscan: 3,
-  });
-
   if (loading) {
     return (
       <div className={styles.grid}>
@@ -69,48 +49,19 @@ export default function ModelGrid({
   }
 
   return (
-    <div ref={parentRef} className={styles.virtualContainer}>
-      <div
-        style={{
-          height: `${rowVirtualizer.getTotalSize()}px`,
-          width: '100%',
-          position: 'relative',
-        }}
-      >
-        {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-          const row = rows[virtualRow.index];
-          return (
-            <div
-              key={virtualRow.key}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: `${virtualRow.size}px`,
-                transform: `translateY(${virtualRow.start}px)`,
-              }}
-            >
-              <div className={styles.row}>
-                {row.map((model, colIndex) => (
-                  <div key={model.id} className={styles.cell}>
-                    <ModelCard
-                      model={model}
-                      onSelect={onSelect}
-                      isFavorite={isFavorite(model.id)}
-                      onToggleFavorite={onToggleFavorite}
-                      convertToYuan={convertToYuan}
-                      staggerIndex={virtualRow.index * COLS + colIndex}
-                    />
-                  </div>
-                ))}
-                {/* Fill empty cell if row has only 1 item */}
-                {row.length < COLS && <div className={styles.cell} />}
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div className={styles.grid}>
+      {models.map((model, index) => (
+        <div key={model.id} className={styles.cell}>
+          <ModelCard
+            model={model}
+            onSelect={onSelect}
+            isFavorite={isFavorite(model.id)}
+            onToggleFavorite={onToggleFavorite}
+            convertToYuan={convertToYuan}
+            staggerIndex={index}
+          />
+        </div>
+      ))}
     </div>
   );
 }
