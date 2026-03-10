@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import type { SeriesCode, GundamModel, FilterConfig, SortConfig } from '../../types';
 import Header from '../../components/Header';
 import ModelGrid from '../../components/ModelGrid';
+import ModelDetail from '../../components/ModelDetail';
 import SearchBar from '../../design-system/SearchBar';
 import FilterPanel from '../../design-system/FilterPanel';
 import SortSelector from '../../design-system/SortSelector';
@@ -258,32 +259,8 @@ export default function SeriesListPage() {
         />
       </div>
 
-      {/* Model detail bottom sheet placeholder */}
-      {selectedModel && (
-        <div className={styles.detailOverlay} onClick={handleCloseDetail}>
-          <div
-            className={styles.detailSheet}
-            onClick={(e) => e.stopPropagation()}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${selectedModel.name} 详情`}
-          >
-            <div className={styles.detailHandle} />
-            <div className={styles.detailPlaceholder}>
-              <p className={styles.detailPlaceholderText}>
-                {selectedModel.name} 详情页面（即将推出）
-              </p>
-              <button
-                className={styles.detailClose}
-                onClick={handleCloseDetail}
-                type="button"
-              >
-                关闭
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Model detail bottom sheet */}
+      <ModelDetail model={selectedModel} open={!!selectedModel} onClose={handleCloseDetail} />
     </div>
   );
 }

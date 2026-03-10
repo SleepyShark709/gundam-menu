@@ -92,7 +92,7 @@ export default function ModelGrid({
               }}
             >
               <div className={styles.row}>
-                {row.map((model) => (
+                {row.map((model, colIndex) => (
                   <div key={model.id} className={styles.cell}>
                     <ModelCard
                       model={model}
@@ -100,6 +100,7 @@ export default function ModelGrid({
                       isFavorite={isFavorite(model.id)}
                       onToggleFavorite={onToggleFavorite}
                       convertToYuan={convertToYuan}
+                      staggerIndex={virtualRow.index * COLS + colIndex}
                     />
                   </div>
                 ))}

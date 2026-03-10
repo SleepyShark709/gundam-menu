@@ -41,10 +41,10 @@ export default function BottomSheet({ open, onClose, children, title }: BottomSh
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
-            transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+            transition={{ type: 'spring', stiffness: 380, damping: 38, mass: 0.8 }}
             drag="y"
             dragConstraints={{ top: 0 }}
-            dragElastic={{ top: 0, bottom: 0.3 }}
+            dragElastic={{ top: 0, bottom: 0.4 }}
             onDragEnd={handleDragEnd}
             style={{ y }}
             role="dialog"

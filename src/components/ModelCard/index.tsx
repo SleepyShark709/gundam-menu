@@ -14,6 +14,7 @@ interface ModelCardProps {
   isFavorite: boolean;
   onToggleFavorite: (id: string) => void;
   convertToYuan?: (price: number) => string;
+  staggerIndex?: number;
 }
 
 export default function ModelCard({
@@ -22,6 +23,7 @@ export default function ModelCard({
   isFavorite,
   onToggleFavorite,
   convertToYuan,
+  staggerIndex = 0,
 }: ModelCardProps) {
   const [imgError, setImgError] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
@@ -48,6 +50,9 @@ export default function ModelCard({
     setImgLoading(false);
   }
 
+  // Cap stagger delay at 8 items to avoid long waits on large lists
+  const staggerDelay = Math.min(staggerIndex, 7) * 50;
+
   return (
     <div
       className={styles.card}
@@ -56,6 +61,7 @@ export default function ModelCard({
       role="button"
       tabIndex={0}
       aria-label={`${model.name} - ${model.series.toUpperCase()} #${String(model.number).padStart(3, '0')}`}
+      style={{ animationDelay: `${staggerDelay}ms` }}
     >
       {/* Image area */}
       <div className={styles.imageWrapper}>

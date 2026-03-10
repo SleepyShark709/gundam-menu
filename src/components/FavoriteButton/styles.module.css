@@ -10,6 +10,8 @@
   cursor: pointer;
   transition: transform var(--transition-fast);
   -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: visible;
 }
 
 .button:active {
@@ -26,4 +28,55 @@
   30% { transform: scale(1); }
   45% { transform: scale(1.15); }
   60% { transform: scale(1); }
+}
+
+/* Particle burst on favorite - CSS-only small dots expanding outward */
+.button.active::before,
+.button.active::after {
+  content: '';
+  position: absolute;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  animation: particleBurst 0.5s ease forwards;
+}
+
+.button.active::before {
+  width: 4px;
+  height: 4px;
+  background: var(--color-accent-danger);
+  top: 50%;
+  left: 50%;
+  box-shadow:
+    -16px -8px 0 1px var(--color-accent-danger),
+    16px -8px 0 1px color-mix(in srgb, var(--color-accent-danger) 80%, transparent),
+    -10px -18px 0 1px color-mix(in srgb, var(--color-accent-danger) 60%, transparent),
+    10px -18px 0 1px var(--color-accent-danger),
+    0 -20px 0 1px color-mix(in srgb, var(--color-accent-danger) 70%, transparent);
+}
+
+.button.active::after {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  top: 50%;
+  left: 50%;
+  box-shadow:
+    18px 6px 0 1px color-mix(in srgb, var(--color-accent-danger) 70%, transparent),
+    -18px 6px 0 1px var(--color-accent-danger),
+    8px 18px 0 1px color-mix(in srgb, var(--color-accent-danger) 60%, transparent),
+    -8px 18px 0 1px var(--color-accent-danger);
+}
+
+@keyframes particleBurst {
+  0% {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
 }
