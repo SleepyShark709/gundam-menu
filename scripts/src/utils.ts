@@ -1,10 +1,10 @@
 /**
- * Utility functions: random delay, retry logic, price/date parsing, robots.txt
+ * Utility functions: random delay, retry logic, price/date parsing,
+ * robots.txt compliance, file I/O.
  */
 
 import * as fs from 'fs/promises';
 import * as path from 'path';
-import type { Page } from 'playwright';
 import {
   PRICE_PATTERN,
   RELEASE_DATE_PATTERNS,
@@ -19,11 +19,9 @@ import type { RobotsPolicy, ScrapeError } from './types.js';
 
 /**
  * Returns a Promise that resolves after a random delay between minMs and maxMs.
- * Used to avoid hammering the target server and triggering anti-bot measures.
  */
 export function randomDelay(minMs: number, maxMs: number): Promise<void> {
   const delay = Math.floor(Math.random() * (maxMs - minMs + 1)) + minMs;
-  console.log(`  [delay] Waiting ${delay}ms before next request...`);
   return new Promise((resolve) => setTimeout(resolve, delay));
 }
 
@@ -32,13 +30,7 @@ export function randomDelay(minMs: number, maxMs: number): Promise<void> {
 // ---------------------------------------------------------------------------
 
 /**
- * Executes an async operation with retry logic.
- * Applies an exponential backoff between attempts.
- *
- * @param operation - The async function to execute
- * @param maxRetries - Maximum number of retry attempts (default: 3)
- * @param operationName - Human-readable name for logging
- * @param errors - Optional array to accumulate ScrapeError entries
+ * Executes an async operation with retry logic and exponential backoff.
  */
 export async function withRetry<T>(
   operation: () => Promise<T>,
@@ -87,9 +79,6 @@ export async function withRetry<T>(
 // User-Agent rotation
 // ---------------------------------------------------------------------------
 
-/**
- * Returns a random User-Agent string from the configured pool.
- */
 export function getRandomUserAgent(): string {
   return USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
 }
@@ -100,11 +89,7 @@ export function getRandomUserAgent(): string {
 
 /**
  * Parses a raw price string into an integer JPY amount (tax-inclusive).
- * Examples:
- *   "4,620円（税込）" → 4620
- *   "¥4,620"         → 4620
- *   "4620"           → 4620
- *
+ * Examples: "4,620 円(税10%込)" -> 4620, "7,150円" -> 7150
  * Returns 0 if parsing fails.
  */
 export function parsePrice(priceText: string): number {
@@ -121,8 +106,7 @@ export function parsePrice(priceText: string): number {
 
 /**
  * Calculates the tax-free price from a tax-inclusive JPY price.
- * Japan consumption tax rate is 10% (as of 2019).
- * Result is rounded to the nearest integer.
+ * Japan consumption tax is 10%.
  */
 export function calcTaxFreePrice(priceWithTax: number): number {
   if (priceWithTax <= 0) return 0;
@@ -135,13 +119,10 @@ export function calcTaxFreePrice(priceWithTax: number): number {
 
 /**
  * Parses a raw release date string into "YYYY-MM" format.
- * Handles Japanese date strings like "2024年3月", slash/dash-separated dates.
- *
- * Returns "0000-00" if no date can be extracted (sorts to the top/bottom
- * as appropriate; callers should filter these out).
+ * Returns "" if no date can be extracted.
  */
 export function parseReleaseDate(dateText: string): string {
-  if (!dateText) return '0000-00';
+  if (!dateText) return '';
 
   for (const pattern of RELEASE_DATE_PATTERNS) {
     const match = dateText.match(pattern);
@@ -152,7 +133,7 @@ export function parseReleaseDate(dateText: string): string {
     }
   }
 
-  return '0000-00';
+  return '';
 }
 
 // ---------------------------------------------------------------------------
@@ -160,8 +141,7 @@ export function parseReleaseDate(dateText: string): string {
 // ---------------------------------------------------------------------------
 
 /**
- * Returns true if the product name, tags, or badge text suggests a limited
- * or P-Bandai exclusive item.
+ * Returns true if any of the provided text strings contains a limited-edition keyword.
  */
 export function detectLimited(texts: string[]): boolean {
   const combined = texts.join(' ');
@@ -172,13 +152,6 @@ export function detectLimited(texts: string[]): boolean {
 // Robots.txt compliance
 // ---------------------------------------------------------------------------
 
-/**
- * Fetches and parses robots.txt to determine whether scraping is permitted
- * for the given user-agent and path prefix.
- *
- * This is a best-effort parser that handles common directives:
- *   User-agent, Disallow, Allow, Crawl-delay
- */
 export async function checkRobotsTxt(
   robotsUrl: string,
   targetPath: string,
@@ -191,7 +164,6 @@ export async function checkRobotsTxt(
     });
 
     if (!response.ok) {
-      // Cannot fetch robots.txt → assume allowed (per convention)
       console.warn(`  [robots] Could not fetch ${robotsUrl}: HTTP ${response.status}. Assuming allowed.`);
       return { allowed: true };
     }
@@ -204,10 +176,6 @@ export async function checkRobotsTxt(
   }
 }
 
-/**
- * Parses robots.txt content and determines if the given path is allowed.
- * Considers rules for "*" (all agents) only (simplified implementation).
- */
 export function parseRobotsForPath(
   robotsContent: string,
   targetPath: string,
@@ -222,8 +190,6 @@ export function parseRobotsForPath(
   for (const line of lines) {
     if (line.startsWith('#') || line === '') {
       if (line === '' && inRelevantBlock) {
-        // End of block — stop processing this agent's section
-        // (but continue to look for Crawl-delay in subsequent global sections)
         inRelevantBlock = false;
       }
       continue;
@@ -243,16 +209,14 @@ export function parseRobotsForPath(
       } else if (directive === 'crawl-delay') {
         const delay = parseFloat(value);
         if (!isNaN(delay)) {
-          crawlDelay = delay * 1000; // Convert seconds → ms
+          crawlDelay = delay * 1000;
         }
       }
     }
   }
 
-  // Determine allowed status: specific Allow rules take precedence over Disallow
   const isDisallowed = disallowedPaths.some((p) => targetPath.startsWith(p));
   const isExplicitlyAllowed = allowedPaths.some((p) => targetPath.startsWith(p));
-
   const allowed = !isDisallowed || isExplicitlyAllowed;
 
   return { allowed, crawlDelay };
@@ -263,71 +227,51 @@ export function parseRobotsForPath(
 // ---------------------------------------------------------------------------
 
 /**
- * Generates a zero-padded sequential ID for a series.
- * e.g. series="mg", number=42 → "mg-042"
+ * Generates a zero-padded sequential ID. e.g. series="mg", number=42 -> "mg-042"
  */
 export function generateId(series: string, number: number): string {
   return `${series}-${String(number).padStart(3, '0')}`;
 }
 
 // ---------------------------------------------------------------------------
-// Infinite scroll helper
-// ---------------------------------------------------------------------------
-
-/**
- * Scrolls a page to the bottom repeatedly until no new content loads,
- * or until the maximum scroll attempts is reached.
- *
- * Returns the number of scroll iterations performed.
- */
-export async function scrollToLoadAll(
-  page: Page,
-  maxScrolls: number = 50,
-  waitBetweenScrollsMs: number = 1500,
-): Promise<number> {
-  let scrollCount = 0;
-  let previousHeight = 0;
-
-  while (scrollCount < maxScrolls) {
-    const currentHeight: number = await page.evaluate(() => document.body.scrollHeight);
-
-    if (currentHeight === previousHeight && scrollCount > 0) {
-      console.log(`  [scroll] Page height stabilized at ${currentHeight}px after ${scrollCount} scrolls.`);
-      break;
-    }
-
-    previousHeight = currentHeight;
-    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
-    await page.waitForTimeout(waitBetweenScrollsMs);
-    scrollCount++;
-
-    console.log(`  [scroll] Scroll ${scrollCount}: height=${currentHeight}px`);
-  }
-
-  return scrollCount;
-}
-
-// ---------------------------------------------------------------------------
 // File I/O helpers
 // ---------------------------------------------------------------------------
 
-/**
- * Writes JSON data to a file, creating parent directories as needed.
- */
 export async function writeJsonFile(filePath: string, data: unknown): Promise<void> {
   await fs.mkdir(path.dirname(filePath), { recursive: true });
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
   console.log(`  [file] Written: ${filePath}`);
 }
 
-/**
- * Reads a JSON file and parses it. Returns null if the file does not exist.
- */
 export async function readJsonFile<T>(filePath: string): Promise<T | null> {
   try {
     const content = await fs.readFile(filePath, 'utf-8');
     return JSON.parse(content) as T;
   } catch {
     return null;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// URL resolution
+// ---------------------------------------------------------------------------
+
+/**
+ * Resolves a potentially relative URL to an absolute URL.
+ */
+export function resolveUrl(rawUrl: string, pageUrl: string): string {
+  if (!rawUrl) return '';
+
+  try {
+    if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {
+      return rawUrl;
+    }
+    if (rawUrl.startsWith('//')) {
+      return `https:${rawUrl}`;
+    }
+    const base = new URL(pageUrl);
+    return new URL(rawUrl, base).toString();
+  } catch {
+    return rawUrl;
   }
 }

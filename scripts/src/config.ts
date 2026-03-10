@@ -1,5 +1,8 @@
 /**
- * Configuration: URLs, selectors, and scraper defaults for Bandai gunpla pages
+ * Configuration: URLs, selectors, and scraper defaults for Bandai gunpla pages.
+ *
+ * All CSS selectors are calibrated to the actual DOM structure of
+ * bandai-hobby.net as of 2026-03.
  */
 
 import type { SeriesCode, ScraperConfig } from './types.js';
@@ -19,90 +22,48 @@ export const SERIES_URLS: Record<SeriesCode, string> = {
 };
 
 // ---------------------------------------------------------------------------
-// CSS selectors — update these if the site structure changes
+// CSS selectors -- matched to actual bandai-hobby.net markup
 // ---------------------------------------------------------------------------
 
 export const SELECTORS = {
-  /**
-   * The outer container holding all product cards on the listing page.
-   * We look for both grid and list layouts.
-   */
-  productGrid: '.product-list, .item-list, [class*="product-grid"], [class*="item-list"]',
+  // ---- Listing page ----
 
-  /**
-   * Individual product card element within the grid.
-   */
-  productCard: '.product-item, .item-card, [class*="product-card"], [class*="item-card"], li.item',
+  /** Product card: the <a> wrapping each product on the brand listing page. */
+  productCard: 'a.c-card.p-card, a.p-card',
 
-  /**
-   * Product name element inside a card.
-   */
-  productName: '.product-name, .item-name, [class*="product-title"], h2, h3, .name',
+  /** Product image within a card. Alt = product name, src = thumbnail. */
+  productImage: '.p-card__img img',
 
-  /**
-   * Price element inside a card. Bandai typically shows "¥X,XXX (税込)".
-   */
-  productPrice: '.price, .item-price, [class*="price"]',
+  /** Pagination links (e.g. ?p=2, ?p=3 ... ?p=142). */
+  paginationLink: 'a[href*="?p="]',
 
-  /**
-   * Release date element inside a card.
-   */
-  productReleaseDate: '.release-date, .date, [class*="release"], [class*="date"]',
+  // ---- Detail page ----
 
-  /**
-   * Product thumbnail image inside a card.
-   */
-  productImage: 'img[src], img[data-src], img[data-lazy-src]',
+  /** Product name heading on the detail page. */
+  detailName: 'h1',
 
-  /**
-   * Anchor tag linking to the product detail page.
-   */
-  productLink: 'a[href]',
+  /** Label titles (dt) in the product info table on the detail page. */
+  detailLabel: 'dt.pg-products__labelTit',
 
-  /**
-   * Badge or label indicating limited edition / P-Bandai exclusives.
-   */
-  limitedBadge:
-    '.limited, .p-bandai, [class*="limited"], [class*="exclusive"], ' +
-    '[class*="pbandai"], .badge-limited, .badge-special',
-
-  /**
-   * "Load more" or pagination button to fetch additional products.
-   */
-  loadMoreButton:
-    'button[class*="more"], a[class*="more"], .load-more, .btn-more, ' +
-    '[data-action="load-more"], .pager-next, a[rel="next"]',
-
-  /**
-   * Pagination: next-page link.
-   */
-  paginationNext: 'a[rel="next"], .pagination .next, .pager-next a',
-
-  /**
-   * Tag / category labels on product cards.
-   */
-  productTags: '.tag, .badge, [class*="tag"], [class*="badge"]',
+  /** Label values (dd) in the product info table on the detail page. */
+  detailValue: 'dd.pg-products__labelTxt',
 } as const;
 
 // ---------------------------------------------------------------------------
 // Text patterns for parsing
 // ---------------------------------------------------------------------------
 
-/** Regex to extract numeric price from strings like "4,620円（税込）" or "¥4,620" */
+/** Regex to extract numeric price from strings like "4,620 円(税10%込)" */
 export const PRICE_PATTERN = /[\d,]+/;
 
 /**
- * Regex to extract release date.
- * Handles:
- *   - "2024年3月" → "2024-03"
- *   - "2024年3月予定" → "2024-03"
- *   - "2024/03"
- *   - "March 2024"
+ * Ordered regexes to extract release date.
+ * Each must capture (year, month) as groups 1 and 2.
  */
 export const RELEASE_DATE_PATTERNS = [
-  /(\d{4})年\s*(\d{1,2})月/,          // Japanese: 2024年3月
-  /(\d{4})\/(\d{1,2})/,              // Slash-separated: 2024/03
-  /(\d{4})-(\d{1,2})/,              // ISO-like: 2024-03
+  /(\d{4})年\s*(\d{1,2})月/,   // Japanese: 2024年3月
+  /(\d{4})\/(\d{1,2})/,        // Slash-separated: 2024/03
+  /(\d{4})-(\d{1,2})/,         // ISO-like: 2024-03
 ];
 
 /** Keywords indicating a product is a limited / P-Bandai exclusive */
@@ -126,15 +87,19 @@ export const LIMITED_KEYWORDS = [
 export const DEFAULT_SCRAPER_CONFIG: ScraperConfig = {
   series: ['hg', 'rg', 'mg', 'pg'],
   maxRetries: 3,
-  minDelayMs: 2000,  // 2 seconds minimum between requests
-  maxDelayMs: 5000,  // 5 seconds maximum between requests
+  minDelayMs: 1000,   // 1 second minimum between page loads
+  maxDelayMs: 3000,   // 3 seconds maximum between page loads
   outputDir: '../public/data',
   headless: true,
-  timeout: 30000,    // 30 seconds page load timeout
+  timeout: 20000,     // 20 seconds per page load
+  maxPages: 0,        // 0 = unlimited
+  skipDetails: false,
+  resume: false,
+  detailConcurrency: 3,
 };
 
 // ---------------------------------------------------------------------------
-// User-Agent strings — rotate randomly to reduce fingerprinting
+// User-Agent strings -- rotate randomly to reduce fingerprinting
 // ---------------------------------------------------------------------------
 
 export const USER_AGENTS = [
@@ -146,7 +111,7 @@ export const USER_AGENTS = [
 ];
 
 // ---------------------------------------------------------------------------
-// Series name mappings (for series-meta.json updates)
+// Series name mappings (for series-meta.json)
 // ---------------------------------------------------------------------------
 
 export const SERIES_META: Record<SeriesCode, { name: string; shortName: string; scale: string }> = {

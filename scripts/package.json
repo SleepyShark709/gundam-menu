@@ -8,7 +8,10 @@
     "scrape:hg": "tsx src/scraper.ts --series=hg",
     "scrape:rg": "tsx src/scraper.ts --series=rg",
     "scrape:mg": "tsx src/scraper.ts --series=mg",
-    "scrape:pg": "tsx src/scraper.ts --series=pg"
+    "scrape:pg": "tsx src/scraper.ts --series=pg",
+    "scrape:fast": "tsx src/scraper.ts --skip-details",
+    "scrape:test": "tsx src/scraper.ts --max-pages=2 --series=pg",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "playwright": "^1.49.0"

@@ -1,20 +1,29 @@
 /**
- * scraper.ts — Main entry point
+ * scraper.ts -- Main entry point for the Bandai Gunpla scraper.
+ *
+ * Two-phase approach:
+ *   Phase 1 (fast):  Iterate through ALL listing pages to collect product
+ *                    names, images, and URLs. ~223 pages total, ~8 min.
+ *   Phase 2 (slow):  Visit each product detail page to get price and release
+ *                    date. ~2200 pages, ~35 min for HG. Skippable with --skip-details.
  *
  * Usage:
- *   pnpm scrape                   # Scrape all series (hg, rg, mg, pg)
- *   pnpm scrape --series=mg       # Scrape a single series
- *   pnpm scrape --series=hg,rg    # Scrape multiple series
+ *   pnpm scrape                          # All series, with details
+ *   pnpm scrape --series=mg              # Single series
+ *   pnpm scrape --series=hg,rg           # Multiple series
+ *   pnpm scrape --skip-details           # Fast mode: listing pages only
+ *   pnpm scrape --max-pages=5            # Limit pages per series (testing)
+ *   pnpm scrape --resume                 # Skip already-scraped products
  *
  * Outputs:
  *   public/data/hg.json
  *   public/data/rg.json
  *   public/data/mg.json
  *   public/data/pg.json
- *   public/data/series-meta.json  (updated totalCount & coverImage)
+ *   public/data/series-meta.json
  */
 
-import { chromium, type Browser, type Page } from 'playwright';
+import { chromium, type Browser, type BrowserContext } from 'playwright';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -26,28 +35,29 @@ import {
 import type {
   SeriesCode,
   GundamModel,
+  BasicProductInfo,
+  DetailPageData,
   SeriesMeta,
   ScrapeResult,
-  RawProductData,
+  ScrapeError,
   ScraperConfig,
 } from './types.js';
 import {
   randomDelay,
   withRetry,
   getRandomUserAgent,
-  parsePrice,
   calcTaxFreePrice,
-  parseReleaseDate,
   detectLimited,
   checkRobotsTxt,
   generateId,
   writeJsonFile,
   readJsonFile,
 } from './utils.js';
-import { collectAllProducts, resolveImageUrl } from './parsers/list-parser.js';
+import { collectAllProductsFromAllPages } from './parsers/list-parser.js';
+import { scrapeDetailPage } from './parsers/detail-parser.js';
 
 // ---------------------------------------------------------------------------
-// Resolve output directory relative to this file (scripts/src → project root)
+// Path resolution
 // ---------------------------------------------------------------------------
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -58,39 +68,67 @@ const OUTPUT_DIR = path.join(PROJECT_ROOT, 'public', 'data');
 // CLI argument parsing
 // ---------------------------------------------------------------------------
 
-function parseCLIArgs(): { series: SeriesCode[] } {
+interface CLIArgs {
+  series: SeriesCode[];
+  skipDetails: boolean;
+  maxPages: number;
+  resume: boolean;
+}
+
+function parseCLIArgs(): CLIArgs {
   const args = process.argv.slice(2);
+
+  // --series=mg,rg
   const seriesArg = args.find((a) => a.startsWith('--series='));
-
+  let series: SeriesCode[] = DEFAULT_SCRAPER_CONFIG.series;
   if (seriesArg) {
-    const rawSeries = seriesArg.replace('--series=', '').split(',').map((s) => s.trim());
     const valid: SeriesCode[] = ['hg', 'rg', 'mg', 'pg'];
-    const series = rawSeries.filter((s): s is SeriesCode => valid.includes(s as SeriesCode));
-
+    const raw = seriesArg.replace('--series=', '').split(',').map((s) => s.trim());
+    series = raw.filter((s): s is SeriesCode => valid.includes(s as SeriesCode));
     if (series.length === 0) {
       console.error(`Invalid --series value: "${seriesArg}". Use one or more of: hg, rg, mg, pg`);
       process.exit(1);
     }
-
-    return { series };
   }
 
-  return { series: DEFAULT_SCRAPER_CONFIG.series };
+  // --skip-details
+  const skipDetails = args.includes('--skip-details');
+
+  // --max-pages=N
+  const maxPagesArg = args.find((a) => a.startsWith('--max-pages='));
+  const maxPages = maxPagesArg ? parseInt(maxPagesArg.replace('--max-pages=', ''), 10) : 0;
+
+  // --resume
+  const resume = args.includes('--resume');
+
+  return { series, skipDetails, maxPages, resume };
 }
 
 // ---------------------------------------------------------------------------
-// Main orchestration
+// Main entry point
 // ---------------------------------------------------------------------------
 
 async function main(): Promise<void> {
-  const { series: seriesToScrape } = parseCLIArgs();
+  const cliArgs = parseCLIArgs();
+
+  const config: ScraperConfig = {
+    ...DEFAULT_SCRAPER_CONFIG,
+    series: cliArgs.series,
+    skipDetails: cliArgs.skipDetails,
+    maxPages: cliArgs.maxPages,
+    resume: cliArgs.resume,
+    outputDir: OUTPUT_DIR,
+  };
 
   console.log('=== Bandai Gunpla Scraper ===');
-  console.log(`Target series: ${seriesToScrape.join(', ')}`);
+  console.log(`Target series: ${config.series.join(', ')}`);
+  console.log(`Skip details: ${config.skipDetails}`);
+  console.log(`Max pages per series: ${config.maxPages || 'unlimited'}`);
+  console.log(`Resume mode: ${config.resume}`);
   console.log(`Output directory: ${OUTPUT_DIR}`);
   console.log('');
 
-  // Check robots.txt before starting
+  // ------ Robots.txt check ------
   console.log('[robots.txt] Checking scraping policy...');
   const robotsPolicy = await checkRobotsTxt(
     'https://bandai-hobby.net/robots.txt',
@@ -103,17 +141,11 @@ async function main(): Promise<void> {
   console.log('[robots.txt] Scraping is permitted.');
   if (robotsPolicy.crawlDelay) {
     console.log(`[robots.txt] Crawl-delay: ${robotsPolicy.crawlDelay}ms`);
+    config.minDelayMs = Math.max(config.minDelayMs, robotsPolicy.crawlDelay);
   }
   console.log('');
 
-  // Override delay with robots.txt crawl-delay if it's longer than our default
-  const config: ScraperConfig = {
-    ...DEFAULT_SCRAPER_CONFIG,
-    series: seriesToScrape,
-    minDelayMs: Math.max(DEFAULT_SCRAPER_CONFIG.minDelayMs, robotsPolicy.crawlDelay ?? 0),
-    outputDir: OUTPUT_DIR,
-  };
-
+  // ------ Launch browser ------
   const browser = await chromium.launch({
     headless: config.headless,
     args: [
@@ -126,8 +158,10 @@ async function main(): Promise<void> {
   const allResults: ScrapeResult[] = [];
 
   try {
-    for (const series of seriesToScrape) {
-      console.log(`\n[${series.toUpperCase()}] Starting scrape...`);
+    for (const series of config.series) {
+      console.log(`\n${'='.repeat(60)}`);
+      console.log(`[${series.toUpperCase()}] Starting scrape...`);
+      console.log(`${'='.repeat(60)}`);
 
       const result = await scrapeSeries(browser, series, config);
       allResults.push(result);
@@ -135,14 +169,19 @@ async function main(): Promise<void> {
       // Persist series JSON immediately
       const outputPath = path.join(OUTPUT_DIR, `${series}.json`);
       await writeJsonFile(outputPath, result.models);
-      console.log(`[${series.toUpperCase()}] Saved ${result.models.length} models to ${outputPath}`);
+      console.log(
+        `[${series.toUpperCase()}] Saved ${result.models.length} models to ${outputPath}`,
+      );
 
       if (result.errors.length > 0) {
-        console.warn(`[${series.toUpperCase()}] ${result.errors.length} errors encountered.`);
+        console.warn(
+          `[${series.toUpperCase()}] ${result.errors.length} errors encountered.`,
+        );
       }
 
-      // Delay between series scrapes
-      if (seriesToScrape.indexOf(series) < seriesToScrape.length - 1) {
+      // Delay between series
+      if (config.series.indexOf(series) < config.series.length - 1) {
+        console.log('\n[delay] Pausing between series...');
         await randomDelay(config.minDelayMs, config.maxDelayMs);
       }
     }
@@ -150,7 +189,6 @@ async function main(): Promise<void> {
     // Update series-meta.json
     await updateSeriesMeta(allResults);
     console.log('\n[meta] series-meta.json updated.');
-
   } finally {
     await browser.close();
     console.log('\n=== Scraping complete ===');
@@ -162,169 +200,268 @@ async function main(): Promise<void> {
 // Series scraper
 // ---------------------------------------------------------------------------
 
-/**
- * Scrapes all products for a single gunpla series.
- */
 async function scrapeSeries(
   browser: Browser,
   series: SeriesCode,
   config: ScraperConfig,
 ): Promise<ScrapeResult> {
-  const errors: ScrapeResult['errors'] = [];
-  const url = SERIES_URLS[series];
+  const errors: ScrapeError[] = [];
+  const brandUrl = SERIES_URLS[series];
 
-  const context = await browser.newContext({
-    userAgent: getRandomUserAgent(),
-    viewport: { width: 1440, height: 900 },
-    locale: 'ja-JP',
-    timezoneId: 'Asia/Tokyo',
-    extraHTTPHeaders: {
-      'Accept-Language': 'ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7',
-      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
-      'Accept-Encoding': 'gzip, deflate, br',
-      'DNT': '1',
-    },
-  });
-
-  // Block unnecessary resource types to speed up scraping
-  await context.route('**/*', (route) => {
-    const resourceType = route.request().resourceType();
-    if (['font', 'media', 'websocket'].includes(resourceType)) {
-      route.abort();
-    } else {
-      route.continue();
-    }
-  });
-
-  let rawProducts: RawProductData[] = [];
+  // Create browser context for this series
+  const context = await createBrowserContext(browser);
 
   try {
+    // ====== PHASE 1: Collect all product URLs from listing pages ======
+    console.log(`\n[${series.toUpperCase()}] Phase 1: Collecting product URLs from listing pages...`);
+
     const page = await context.newPage();
     page.setDefaultTimeout(config.timeout);
     page.setDefaultNavigationTimeout(config.timeout);
 
-    rawProducts = await withRetry(
-      () => navigateAndCollect(page, url, config),
-      config.maxRetries,
-      `scrape:${series}:${url}`,
-      errors,
-    );
+    let basicProducts: BasicProductInfo[] = [];
+
+    try {
+      basicProducts = await withRetry(
+        () =>
+          collectAllProductsFromAllPages(page, brandUrl, {
+            minDelayMs: config.minDelayMs,
+            maxDelayMs: config.maxDelayMs,
+            maxPages: config.maxPages,
+            timeout: config.timeout,
+          }),
+        config.maxRetries,
+        `list:${series}`,
+        errors,
+      );
+    } catch (err) {
+      console.error(
+        `[${series.toUpperCase()}] Phase 1 failed: ${err instanceof Error ? err.message : String(err)}`,
+      );
+      basicProducts = [];
+    }
 
     await page.close();
+
+    console.log(
+      `[${series.toUpperCase()}] Phase 1 complete: ${basicProducts.length} products found.`,
+    );
+
+    // ====== PHASE 2: Enrich with detail page data ======
+    let detailMap: Map<string, DetailPageData>;
+
+    if (config.skipDetails) {
+      console.log(`[${series.toUpperCase()}] Phase 2: SKIPPED (--skip-details)`);
+      detailMap = new Map();
+    } else {
+      console.log(
+        `\n[${series.toUpperCase()}] Phase 2: Scraping ${basicProducts.length} detail pages...`,
+      );
+
+      // Load existing data for resume mode
+      let existingModels: GundamModel[] = [];
+      if (config.resume) {
+        const existingPath = path.join(OUTPUT_DIR, `${series}.json`);
+        existingModels = (await readJsonFile<GundamModel[]>(existingPath)) ?? [];
+        console.log(
+          `[${series.toUpperCase()}] Resume: loaded ${existingModels.length} existing models.`,
+        );
+      }
+
+      detailMap = await scrapeAllDetailPages(
+        context,
+        basicProducts,
+        existingModels,
+        series,
+        config,
+        errors,
+      );
+
+      console.log(
+        `[${series.toUpperCase()}] Phase 2 complete: ${detailMap.size} detail pages scraped.`,
+      );
+    }
+
+    // ====== Combine and normalize ======
+    const models = buildGundamModels(basicProducts, detailMap, series);
+
+    return {
+      series,
+      models,
+      scrapedAt: new Date().toISOString(),
+      totalCount: models.length,
+      errors,
+    };
   } finally {
     await context.close();
   }
-
-  // Normalize raw products into GundamModel objects
-  const models = normalizeProducts(rawProducts, series, url);
-
-  return {
-    series,
-    models,
-    scrapedAt: new Date().toISOString(),
-    totalCount: models.length,
-    errors,
-  };
 }
 
 // ---------------------------------------------------------------------------
-// Navigation + collection
+// Detail page scraping (batch)
 // ---------------------------------------------------------------------------
 
 /**
- * Navigates to the series listing page and collects all product cards.
+ * Scrapes detail pages for all products, with concurrency control,
+ * progress reporting, and incremental saves.
  */
-async function navigateAndCollect(
-  page: Page,
-  url: string,
-  config: ScraperConfig,
-): Promise<RawProductData[]> {
-  console.log(`  [nav] Navigating to ${url}...`);
-
-  await page.goto(url, {
-    waitUntil: 'networkidle',
-    timeout: config.timeout,
-  });
-
-  // Wait a moment for any JS-rendered content to appear
-  await page.waitForTimeout(2000);
-
-  console.log('  [nav] Page loaded. Collecting products...');
-  const products = await collectAllProducts(page);
-  console.log(`  [nav] Collected ${products.length} raw product entries.`);
-
-  // Resolve relative image URLs against the page URL
-  return products.map((p) => ({
-    ...p,
-    imageUrl: resolveImageUrl(p.imageUrl, url),
-    productUrl: p.productUrl.startsWith('http') ? p.productUrl : resolveImageUrl(p.productUrl, url),
-  }));
-}
-
-// ---------------------------------------------------------------------------
-// Normalization
-// ---------------------------------------------------------------------------
-
-/**
- * Converts raw product data into normalized GundamModel objects.
- * - Parses prices and dates
- * - Filters out invalid entries
- * - Sorts by release date
- * - Assigns sequential IDs
- */
-function normalizeProducts(
-  rawProducts: RawProductData[],
+async function scrapeAllDetailPages(
+  context: BrowserContext,
+  products: BasicProductInfo[],
+  existingModels: GundamModel[],
   series: SeriesCode,
-  baseUrl: string,
-): GundamModel[] {
-  const valid: Array<GundamModel & { _releaseDate: string }> = [];
+  config: ScraperConfig,
+  errors: ScrapeError[],
+): Promise<Map<string, DetailPageData>> {
+  const detailMap = new Map<string, DetailPageData>();
 
-  for (const raw of rawProducts) {
-    // Skip entries without a name or product URL
-    if (!raw.name.trim()) continue;
+  // Build set of already-scraped URLs for resume mode
+  const existingUrls = new Set(existingModels.map((m) => m.productUrl));
 
-    const price = parsePrice(raw.priceText);
-    const priceTaxFree = calcTaxFreePrice(price);
-    const releaseDate = parseReleaseDate(raw.releaseDateText);
+  // Filter products that need detail scraping
+  const productsToScrape = config.resume
+    ? products.filter((p) => !existingUrls.has(p.productUrl))
+    : products;
 
-    // Ensure product URL is absolute
-    let productUrl = raw.productUrl;
-    if (productUrl && !productUrl.startsWith('http')) {
+  // Populate detailMap with existing data for resumed products
+  if (config.resume) {
+    for (const model of existingModels) {
+      detailMap.set(model.productUrl, {
+        price: model.price,
+        releaseDate: model.releaseDate,
+        isLimited: model.isLimited,
+      });
+    }
+    console.log(
+      `[${series.toUpperCase()}] Resume: ${existingUrls.size} already scraped, ${productsToScrape.length} remaining.`,
+    );
+  }
+
+  if (productsToScrape.length === 0) {
+    return detailMap;
+  }
+
+  // Open a dedicated page for detail scraping
+  const detailPage = await context.newPage();
+  detailPage.setDefaultTimeout(config.timeout);
+  detailPage.setDefaultNavigationTimeout(config.timeout);
+
+  const total = productsToScrape.length;
+  let completed = 0;
+  let failed = 0;
+
+  // Save progress every N products
+  const saveInterval = 50;
+
+  try {
+    for (const product of productsToScrape) {
+      // Delay between detail page visits
+      if (completed > 0) {
+        await randomDelay(
+          Math.max(1000, config.minDelayMs),
+          Math.max(2000, config.maxDelayMs),
+        );
+      }
+
       try {
-        productUrl = new URL(productUrl, baseUrl).toString();
+        const detail = await withRetry(
+          () => scrapeDetailPage(detailPage, product.productUrl, config.timeout),
+          2, // fewer retries for individual detail pages
+          `detail:${product.productUrl}`,
+          errors,
+        );
+
+        detailMap.set(product.productUrl, detail);
       } catch {
-        productUrl = baseUrl;
+        failed++;
+        // Store empty detail data so we don't block on this product
+        detailMap.set(product.productUrl, {
+          price: 0,
+          releaseDate: '',
+          isLimited: detectLimited([product.name]),
+        });
+      }
+
+      completed++;
+
+      // Progress reporting
+      if (completed % 10 === 0 || completed === total) {
+        const pct = Math.round((completed / total) * 100);
+        console.log(
+          `  [detail] Progress: ${completed}/${total} (${pct}%) | Failed: ${failed}`,
+        );
+      }
+
+      // Incremental save
+      if (completed % saveInterval === 0) {
+        const partialModels = buildGundamModels(
+          // Use all products that have detail data so far
+          [...detailMap.keys()].map((url) => {
+            const prod = products.find((p) => p.productUrl === url);
+            return prod ?? { name: '', imageUrl: '', productUrl: url };
+          }).filter((p) => p.name),
+          detailMap,
+          series,
+        );
+        const outputPath = path.join(OUTPUT_DIR, `${series}.json`);
+        await writeJsonFile(outputPath, partialModels);
+        console.log(`  [save] Incremental save: ${partialModels.length} models.`);
       }
     }
+  } finally {
+    await detailPage.close();
+  }
 
-    valid.push({
-      // Temporary placeholder ID — will be overwritten after sorting
+  return detailMap;
+}
+
+// ---------------------------------------------------------------------------
+// Build final GundamModel array
+// ---------------------------------------------------------------------------
+
+function buildGundamModels(
+  basicProducts: BasicProductInfo[],
+  detailMap: Map<string, DetailPageData>,
+  series: SeriesCode,
+): GundamModel[] {
+  const models: Array<GundamModel & { _sortDate: string }> = [];
+
+  for (const product of basicProducts) {
+    if (!product.name.trim()) continue;
+
+    const detail = detailMap.get(product.productUrl);
+    const price = detail?.price ?? 0;
+    const releaseDate = detail?.releaseDate ?? '';
+    const isLimited =
+      detail?.isLimited ?? detectLimited([product.name]);
+
+    models.push({
       id: '',
       series,
       number: 0,
-      name: raw.name.trim(),
-      nameEn: raw.nameEn?.trim() || undefined,
+      name: product.name,
       price,
-      priceTaxFree,
+      priceTaxFree: calcTaxFreePrice(price),
       releaseDate,
-      isLimited: raw.isLimited || detectLimited([raw.name, ...(raw.tags ?? [])]),
-      imageUrl: raw.imageUrl,
-      productUrl,
-      tags: raw.tags?.length ? raw.tags : undefined,
-      _releaseDate: releaseDate,
+      isLimited,
+      imageUrl: product.imageUrl,
+      productUrl: product.productUrl,
+      _sortDate: releaseDate || '9999-99', // unknown dates sort last
     });
   }
 
-  // Sort by release date ascending (unknown dates "0000-00" sort first)
-  valid.sort((a, b) => {
-    if (a._releaseDate === b._releaseDate) return a.name.localeCompare(b.name, 'ja');
-    return a._releaseDate.localeCompare(b._releaseDate);
+  // Sort by release date ascending, then by name
+  models.sort((a, b) => {
+    if (a._sortDate !== b._sortDate) {
+      return a._sortDate.localeCompare(b._sortDate);
+    }
+    return a.name.localeCompare(b.name, 'ja');
   });
 
-  // Assign sequential numbers and IDs
-  return valid.map((model, index) => {
+  // Assign sequential numbers and IDs; strip internal sort key
+  return models.map((model, index) => {
     const number = index + 1;
-    const { _releaseDate: _rd, ...rest } = model;
+    const { _sortDate: _unused, ...rest } = model;
     return {
       ...rest,
       id: generateId(series, number),
@@ -334,25 +471,47 @@ function normalizeProducts(
 }
 
 // ---------------------------------------------------------------------------
+// Browser context factory
+// ---------------------------------------------------------------------------
+
+async function createBrowserContext(browser: Browser): Promise<BrowserContext> {
+  const context = await browser.newContext({
+    userAgent: getRandomUserAgent(),
+    viewport: { width: 1440, height: 900 },
+    locale: 'ja-JP',
+    timezoneId: 'Asia/Tokyo',
+    extraHTTPHeaders: {
+      'Accept-Language': 'ja-JP,ja;q=0.9,en-US;q=0.8,en;q=0.7',
+      Accept:
+        'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8',
+      'Accept-Encoding': 'gzip, deflate, br',
+      DNT: '1',
+    },
+  });
+
+  // Block heavy resources to speed up navigation
+  await context.route('**/*', (route) => {
+    const resourceType = route.request().resourceType();
+    if (['font', 'media', 'websocket'].includes(resourceType)) {
+      return route.abort();
+    }
+    return route.continue();
+  });
+
+  return context;
+}
+
+// ---------------------------------------------------------------------------
 // series-meta.json updater
 // ---------------------------------------------------------------------------
 
-/**
- * Reads the existing series-meta.json, updates entries for scraped series,
- * and writes the file back.
- */
 async function updateSeriesMeta(results: ScrapeResult[]): Promise<void> {
   const metaPath = path.join(OUTPUT_DIR, 'series-meta.json');
-
-  // Load existing meta (may be empty or have stale data)
   const existingMeta = (await readJsonFile<SeriesMeta[]>(metaPath)) ?? [];
-
-  // Build a map from existing entries for easy lookup
   const metaMap = new Map<SeriesCode, SeriesMeta>(
     existingMeta.map((m) => [m.code, m]),
   );
 
-  // Populate all four series — update only what was scraped
   const allSeries: SeriesCode[] = ['hg', 'rg', 'mg', 'pg'];
 
   const updatedMeta: SeriesMeta[] = allSeries.map((code) => {
@@ -364,9 +523,8 @@ async function updateSeriesMeta(results: ScrapeResult[]): Promise<void> {
     };
 
     const result = results.find((r) => r.series === code);
-    if (!result) return base; // Not scraped this run — keep existing data
+    if (!result) return base;
 
-    // Use the first model's image as the cover image
     const coverImage = result.models[0]?.imageUrl ?? base.coverImage;
 
     return {
@@ -387,9 +545,15 @@ function printSummary(results: ScrapeResult[]): void {
   console.log('\n--- Summary ---');
   for (const r of results) {
     const errorCount = r.errors.length;
+    const withPrice = r.models.filter((m) => m.price > 0).length;
+    const withDate = r.models.filter((m) => m.releaseDate !== '').length;
     const status = errorCount === 0 ? 'OK' : `${errorCount} error(s)`;
     console.log(
-      `  ${r.series.toUpperCase().padEnd(4)} | ${String(r.totalCount).padStart(4)} models | ${status}`,
+      `  ${r.series.toUpperCase().padEnd(4)} | ` +
+        `${String(r.totalCount).padStart(5)} models | ` +
+        `${String(withPrice).padStart(5)} with price | ` +
+        `${String(withDate).padStart(5)} with date | ` +
+        status,
     );
   }
 }

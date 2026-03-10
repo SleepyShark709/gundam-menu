@@ -1,323 +1,168 @@
 /**
  * list-parser.ts
  *
- * Parses product listing pages from Bandai's gunpla brand pages.
- * Responsible for:
- *   - Locating product card elements in the DOM
- *   - Extracting raw text/attributes from each card
- *   - Handling both grid and list layouts
- *   - Triggering load-more/pagination to get all products
+ * Crawls ALL pages of a Bandai brand listing (e.g. /brand/mg/?p=1 ... ?p=57)
+ * and extracts basic product info from each card element.
+ *
+ * Card structure on bandai-hobby.net:
+ *   <a href="https://bandai-hobby.net/item/01_XXXX/" class="c-card p-card -landscape">
+ *     <div class="p-card__img">
+ *       <img src="https://d3bk8pkqsprcvh.cloudfront.net/..." alt="MG 1/100 ...">
+ *     </div>
+ *   </a>
+ *
+ * Pagination: links with ?p=N. The highest N found on page 1 = max page.
  */
 
 import type { Page } from 'playwright';
 import { SELECTORS } from '../config.js';
-import type { RawProductData } from '../types.js';
-import { scrollToLoadAll } from '../utils.js';
+import type { BasicProductInfo } from '../types.js';
+import { randomDelay, resolveUrl } from '../utils.js';
 
 // ---------------------------------------------------------------------------
-// Page-level product collection
+// Public API
 // ---------------------------------------------------------------------------
 
 /**
- * Collects all product data from a listing page, handling infinite scroll
- * and "load more" button patterns to ensure all items are captured.
+ * Collects basic product info from ALL pages of a brand listing.
  *
- * @param page - Playwright Page instance already navigated to the listing URL
- * @returns Array of raw product data objects
+ * @param page      Playwright Page instance (will be navigated)
+ * @param brandUrl  Base URL, e.g. "https://bandai-hobby.net/brand/mg/"
+ * @param options   Delay and page limit settings
+ * @returns Array of BasicProductInfo for every product found
  */
-export async function collectAllProducts(page: Page): Promise<RawProductData[]> {
-  // Step 1: Try to expand all products via infinite scroll
-  await scrollToLoadAll(page, 60, 1500);
+export async function collectAllProductsFromAllPages(
+  page: Page,
+  brandUrl: string,
+  options: {
+    minDelayMs: number;
+    maxDelayMs: number;
+    maxPages: number;
+    timeout: number;
+  },
+): Promise<BasicProductInfo[]> {
+  // ------ Step 1: Navigate to page 1 ------
+  console.log(`  [list] Navigating to ${brandUrl}`);
+  await page.goto(brandUrl, { waitUntil: 'domcontentloaded', timeout: options.timeout });
+  await page.waitForTimeout(2000);
 
-  // Step 2: Also attempt to click any visible "load more" buttons
-  await clickAllLoadMoreButtons(page);
+  // ------ Step 2: Detect max page number from pagination links ------
+  const maxPage = await detectMaxPage(page);
+  const effectiveMaxPage = options.maxPages > 0
+    ? Math.min(maxPage, options.maxPages)
+    : maxPage;
 
-  // Step 3: Extract product cards from the fully-loaded DOM
-  return extractProductCards(page);
-}
+  console.log(`  [list] Detected ${maxPage} total pages. Will scrape ${effectiveMaxPage} pages.`);
 
-// ---------------------------------------------------------------------------
-// Load-more button handling
-// ---------------------------------------------------------------------------
+  // ------ Step 3: Collect products from each page ------
+  const allProducts: BasicProductInfo[] = [];
 
-/**
- * Repeatedly clicks "load more" / pagination buttons until none remain
- * or a maximum iteration count is reached.
- */
-async function clickAllLoadMoreButtons(page: Page, maxClicks: number = 50): Promise<void> {
-  let clicks = 0;
-
-  while (clicks < maxClicks) {
-    const loadMoreButton = page.locator(SELECTORS.loadMoreButton).first();
-    const isVisible = await loadMoreButton.isVisible().catch(() => false);
-
-    if (!isVisible) {
-      break;
+  for (let p = 1; p <= effectiveMaxPage; p++) {
+    // Navigate to the page (page 1 is already loaded)
+    if (p > 1) {
+      await randomDelay(options.minDelayMs, options.maxDelayMs);
+      const pageUrl = `${brandUrl}?p=${p}`;
+      await page.goto(pageUrl, { waitUntil: 'domcontentloaded', timeout: options.timeout });
+      await page.waitForTimeout(1500);
     }
 
-    console.log(`  [pagination] Clicking load-more button (click ${clicks + 1})...`);
-    await loadMoreButton.click();
+    const products = await extractProductCardsFromPage(page, brandUrl);
+    allProducts.push(...products);
 
-    // Wait for new content to load before looking for another button
-    await page.waitForTimeout(2000);
-    clicks++;
+    console.log(
+      `  [list] Page ${p}/${effectiveMaxPage}: found ${products.length} products (cumulative: ${allProducts.length})`,
+    );
   }
 
-  if (clicks > 0) {
-    console.log(`  [pagination] Clicked load-more ${clicks} times.`);
+  // Deduplicate by productUrl (in case of overlap between pages)
+  const seen = new Set<string>();
+  const unique = allProducts.filter((p) => {
+    if (seen.has(p.productUrl)) return false;
+    seen.add(p.productUrl);
+    return true;
+  });
+
+  if (unique.length !== allProducts.length) {
+    console.log(`  [list] Deduplicated: ${allProducts.length} -> ${unique.length} products.`);
   }
+
+  return unique;
 }
 
 // ---------------------------------------------------------------------------
-// Card extraction
+// Internal helpers
 // ---------------------------------------------------------------------------
 
 /**
- * Extracts product information from all card elements in the current DOM.
- * Falls back to broader selectors if the primary selectors yield no results.
+ * Detects the maximum page number from pagination links on the current page.
  */
-async function extractProductCards(page: Page): Promise<RawProductData[]> {
-  // Try multiple card selector strategies
-  const cardSelectors = [
-    SELECTORS.productCard,
-    'article',
-    '.product',
-    '.item',
-    'li[class*="item"]',
-    'div[class*="product"]',
-    'div[class*="item"]',
-  ];
-
-  let cards: RawProductData[] = [];
-
-  for (const selector of cardSelectors) {
-    const count = await page.locator(selector).count();
-    if (count > 0) {
-      console.log(`  [parser] Found ${count} product cards using selector: "${selector}"`);
-      cards = await parseCardsWithSelector(page, selector);
-      if (cards.length > 0) break;
-    }
-  }
-
-  if (cards.length === 0) {
-    console.warn('  [parser] No product cards found with any known selector. Trying fallback extraction...');
-    cards = await fallbackExtraction(page);
-  }
-
-  return cards;
+async function detectMaxPage(page: Page): Promise<number> {
+  return page.evaluate((paginationSelector) => {
+    const links = document.querySelectorAll(paginationSelector);
+    let max = 1;
+    links.forEach((link) => {
+      const href = link.getAttribute('href') || '';
+      const match = href.match(/[?&]p=(\d+)/);
+      if (match) {
+        const num = parseInt(match[1], 10);
+        if (num > max) max = num;
+      }
+    });
+    return max;
+  }, SELECTORS.paginationLink);
 }
 
 /**
- * Extracts product data from cards matched by the given CSS selector.
+ * Extracts product info from all card elements on the current page.
  */
-async function parseCardsWithSelector(page: Page, cardSelector: string): Promise<RawProductData[]> {
-  return page.evaluate(
-    ({ cardSel, sels, limitedKw }) => {
-      const results: Array<{
-        name: string;
-        nameEn?: string;
-        priceText: string;
-        releaseDateText: string;
-        imageUrl: string;
-        productUrl: string;
-        isLimited: boolean;
-        tags: string[];
-      }> = [];
-
-      const cards = document.querySelectorAll(cardSel);
+async function extractProductCardsFromPage(
+  page: Page,
+  baseUrl: string,
+): Promise<BasicProductInfo[]> {
+  const rawProducts = await page.evaluate(
+    ({ cardSelector, imageSelector }) => {
+      const cards = document.querySelectorAll(cardSelector);
+      const results: Array<{ name: string; imageUrl: string; productUrl: string }> = [];
 
       cards.forEach((card) => {
-        // ---------- Product name ----------
-        const nameEl = card.querySelector(sels.productName);
-        const name = nameEl?.textContent?.trim() ?? '';
-        if (!name) return; // Skip cards without a name
+        const anchor = card as HTMLAnchorElement;
+        const img = card.querySelector(imageSelector) as HTMLImageElement | null;
 
-        // ---------- English name (often a subtitle or second heading) ----------
-        const allHeadings = card.querySelectorAll('h1, h2, h3, h4, .subtitle, [class*="name-en"]');
-        let nameEn: string | undefined;
-        if (allHeadings.length > 1) {
-          const secondHeading = allHeadings[1]?.textContent?.trim();
-          if (secondHeading && secondHeading !== name) {
-            nameEn = secondHeading;
-          }
-        }
-
-        // ---------- Price ----------
-        const priceEl = card.querySelector(sels.productPrice);
-        const priceText = priceEl?.textContent?.trim() ?? '';
-
-        // ---------- Release date ----------
-        const dateEl = card.querySelector(sels.productReleaseDate);
-        let releaseDateText = dateEl?.textContent?.trim() ?? '';
-
-        // Some pages embed the date in a data attribute
-        if (!releaseDateText) {
-          const dateAttr =
-            card.getAttribute('data-release') ??
-            card.getAttribute('data-date') ??
-            card.getAttribute('data-release-date');
-          releaseDateText = dateAttr ?? '';
-        }
-
-        // ---------- Image URL ----------
-        const imgEl = card.querySelector(sels.productImage) as HTMLImageElement | null;
-        const imageUrl =
-          imgEl?.getAttribute('data-src') ??
-          imgEl?.getAttribute('data-lazy-src') ??
-          imgEl?.getAttribute('src') ??
+        // Try multiple sources for the product name
+        const name =
+          img?.alt?.trim() ||
+          img?.getAttribute('title')?.trim() ||
+          anchor.getAttribute('aria-label')?.trim() ||
+          anchor.textContent?.trim() ||
           '';
 
-        // ---------- Product detail URL ----------
-        const linkEl = card.querySelector(sels.productLink) as HTMLAnchorElement | null;
-        const productUrl = linkEl?.href ?? '';
+        // Try multiple sources for the image URL
+        const imageUrl =
+          img?.getAttribute('data-src') ||
+          img?.getAttribute('data-lazy-src') ||
+          img?.src ||
+          '';
 
-        // ---------- Limited edition detection ----------
-        const badgeEl = card.querySelector(sels.limitedBadge);
-        const badgeText = badgeEl?.textContent?.trim() ?? '';
-        const cardText = card.textContent ?? '';
-        const isLimited = limitedKw.some((kw: string) => cardText.includes(kw) || badgeText.includes(kw));
+        // Product URL from the anchor href
+        const productUrl = anchor.href || '';
 
-        // ---------- Tags ----------
-        const tagEls = card.querySelectorAll(sels.productTags);
-        const tags: string[] = [];
-        tagEls.forEach((tagEl) => {
-          const tagText = tagEl.textContent?.trim();
-          if (tagText && !tags.includes(tagText)) {
-            tags.push(tagText);
-          }
-        });
-
-        results.push({
-          name,
-          nameEn,
-          priceText,
-          releaseDateText,
-          imageUrl,
-          productUrl,
-          isLimited,
-          tags,
-        });
+        if (name && productUrl) {
+          results.push({ name, imageUrl, productUrl });
+        }
       });
 
       return results;
     },
     {
-      cardSel: cardSelector,
-      sels: {
-        productName: SELECTORS.productName,
-        productPrice: SELECTORS.productPrice,
-        productReleaseDate: SELECTORS.productReleaseDate,
-        productImage: SELECTORS.productImage,
-        productLink: SELECTORS.productLink,
-        limitedBadge: SELECTORS.limitedBadge,
-        productTags: SELECTORS.productTags,
-      },
-      limitedKw: ['P-Bandai', 'p-bandai', 'Limited', 'limited', '限定', 'プレミアムバンダイ', '魂ウェブ商店'],
+      cardSelector: SELECTORS.productCard,
+      imageSelector: SELECTORS.productImage,
     },
   );
-}
 
-/**
- * Fallback extraction: scans all anchor elements with images and attempts
- * to reconstruct product data from their surrounding context.
- * Used when no known card-level selectors match.
- */
-async function fallbackExtraction(page: Page): Promise<RawProductData[]> {
-  return page.evaluate(() => {
-    const results: Array<{
-      name: string;
-      priceText: string;
-      releaseDateText: string;
-      imageUrl: string;
-      productUrl: string;
-      isLimited: boolean;
-      tags: string[];
-    }> = [];
-
-    // Look for anchors that wrap or are near images — these are likely product links
-    const anchors = document.querySelectorAll('a[href]') as NodeListOf<HTMLAnchorElement>;
-
-    anchors.forEach((anchor) => {
-      const img = anchor.querySelector('img') as HTMLImageElement | null;
-      if (!img) return;
-
-      // Must have a reasonable image src
-      const imageUrl =
-        img.getAttribute('data-src') ??
-        img.getAttribute('data-lazy-src') ??
-        img.getAttribute('src') ??
-        '';
-      if (!imageUrl || imageUrl.startsWith('data:')) return;
-
-      const productUrl = anchor.href;
-      if (!productUrl || productUrl === window.location.href) return;
-
-      // Walk up the DOM to find the closest container with useful text
-      const container = anchor.closest('li, article, div[class], section') ?? anchor.parentElement;
-      const containerText = container?.textContent?.trim() ?? anchor.textContent?.trim() ?? '';
-
-      // Extract alt text or aria-label as product name
-      const name =
-        img.getAttribute('alt')?.trim() ??
-        anchor.getAttribute('aria-label')?.trim() ??
-        anchor.textContent?.trim() ??
-        '';
-      if (!name) return;
-
-      // Attempt to find price in container text
-      const priceMatch = containerText.match(/[\d,]+\s*円/);
-      const priceText = priceMatch ? priceMatch[0] : '';
-
-      // Attempt to find date in container text
-      const dateMatch = containerText.match(/\d{4}年\s*\d{1,2}月|\d{4}\/\d{1,2}/);
-      const releaseDateText = dateMatch ? dateMatch[0] : '';
-
-      const isLimited = ['限定', 'Limited', 'P-Bandai', '魂ウェブ'].some((kw) =>
-        containerText.includes(kw),
-      );
-
-      results.push({
-        name,
-        priceText,
-        releaseDateText,
-        imageUrl,
-        productUrl,
-        isLimited,
-        tags: [],
-      });
-    });
-
-    return results;
-  });
-}
-
-// ---------------------------------------------------------------------------
-// URL resolution helper
-// ---------------------------------------------------------------------------
-
-/**
- * Resolves a potentially relative image URL to an absolute URL.
- * Bandai CDN URLs are returned as-is; relative paths are resolved
- * against the page's base URL.
- */
-export function resolveImageUrl(rawUrl: string, pageUrl: string): string {
-  if (!rawUrl) return '';
-
-  try {
-    // Already absolute
-    if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {
-      return rawUrl;
-    }
-
-    // Protocol-relative
-    if (rawUrl.startsWith('//')) {
-      return `https:${rawUrl}`;
-    }
-
-    // Relative — resolve against page URL
-    const base = new URL(pageUrl);
-    return new URL(rawUrl, base).toString();
-  } catch {
-    return rawUrl;
-  }
+  // Resolve relative URLs
+  return rawProducts.map((p) => ({
+    name: p.name,
+    imageUrl: resolveUrl(p.imageUrl, baseUrl),
+    productUrl: resolveUrl(p.productUrl, baseUrl),
+  }));
 }
