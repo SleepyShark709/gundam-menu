@@ -1,0 +1,94 @@
+.page {
+  position: relative;
+  min-height: 100dvh;
+  min-height: 100vh;
+  background: var(--color-bg-primary);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Particle background layer */
+.particleBg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Content above particle background */
+.content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header wrapper */
+.headerWrapper {
+  flex-shrink: 0;
+}
+
+/* Main area: vertically centers the carousel */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xl);
+  padding: var(--spacing-xl) 0;
+  min-height: 0;
+}
+
+/* Carousel container */
+.carouselWrapper {
+  width: 100%;
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 2px;
+  text-align: center;
+  font-family: var(--font-family);
+}
+
+/* Bottom navigation */
+.bottomNav {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-xl) var(--spacing-xl) calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--color-border);
+  background: linear-gradient(0deg, rgba(10, 14, 23, 0.95) 0%, transparent 100%);
+}
+
+.favButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-sm) var(--spacing-xl);
+  color: var(--color-text-muted);
+  transition: color var(--transition-fast);
+  border-radius: var(--radius-md);
+}
+
+.favButton:active {
+  color: var(--color-accent-primary);
+  background: rgba(0, 212, 255, 0.08);
+}
+
+.favLabel {
+  font-size: var(--font-size-xs);
+  letter-spacing: 1px;
+  font-family: var(--font-family);
+}

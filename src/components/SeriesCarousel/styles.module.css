@@ -1,0 +1,67 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl);
+}
+
+/* Scroll container */
+.scrollContainer {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Momentum scrolling */
+  scroll-behavior: smooth;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+}
+
+.scrollContainer:active {
+  cursor: grabbing;
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Inner track */
+.track {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-xl);
+  /* Side padding so edge cards are centered */
+  padding: var(--spacing-lg) calc(50vw - 140px);
+}
+
+/* Page indicator dots */
+.dots {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-text-muted);
+  transition: all var(--transition-normal);
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+.dot.active {
+  width: 20px;
+  background: var(--color-accent-primary);
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.6);
+}
