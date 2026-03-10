@@ -4,31 +4,31 @@
     "name": "High Grade",
     "shortName": "HG",
     "scale": "1/144",
-    "coverImage": "",
-    "totalCount": 0
+    "coverImage": "https://bandai-hobby.net/wp-content/uploads/2019/08/50560781.jpg",
+    "totalCount": 10
   },
   {
     "code": "rg",
     "name": "Real Grade",
     "shortName": "RG",
     "scale": "1/144",
-    "coverImage": "",
-    "totalCount": 0
+    "coverImage": "https://bandai-hobby.net/wp-content/uploads/2019/08/rg001.jpg",
+    "totalCount": 10
   },
   {
     "code": "mg",
     "name": "Master Grade",
     "shortName": "MG",
     "scale": "1/100",
-    "coverImage": "",
-    "totalCount": 0
+    "coverImage": "https://bandai-hobby.net/wp-content/uploads/2019/08/mg001.jpg",
+    "totalCount": 10
   },
   {
     "code": "pg",
     "name": "Perfect Grade",
     "shortName": "PG",
     "scale": "1/60",
-    "coverImage": "",
-    "totalCount": 0
+    "coverImage": "https://bandai-hobby.net/wp-content/uploads/2019/08/pg001.jpg",
+    "totalCount": 7
   }
 ]
