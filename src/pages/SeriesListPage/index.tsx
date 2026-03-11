@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import type { SeriesCode, GundamModel, FilterConfig, SortConfig } from '../../types';
 import Header from '../../components/Header';
@@ -70,6 +70,24 @@ export default function SeriesListPage() {
 
   // Selected model for detail
   const [selectedModel, setSelectedModel] = useState<GundamModel | null>(null);
+
+  // Back to top
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [showBackTop, setShowBackTop] = useState(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    function handleScroll() {
+      setShowBackTop(el!.scrollTop > el!.clientHeight);
+    }
+    el.addEventListener('scroll', handleScroll, { passive: true });
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleBackTop = useCallback(() => {
+    scrollRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
 
   const handleBack = useCallback(() => {
     navigate(-1);
@@ -239,7 +257,7 @@ export default function SeriesListPage() {
         </FilterPanel>
 
         {/* Scrollable area */}
-        <div className={styles.scrollArea}>
+        <div className={styles.scrollArea} ref={scrollRef}>
           {/* Result count */}
           {!loading && !error && (
             <div className={styles.resultCount}>
@@ -265,6 +283,18 @@ export default function SeriesListPage() {
           />
         </div>
       </div>
+
+      {/* Back to top */}
+      {showBackTop && (
+        <button
+          className={styles.backTopButton}
+          onClick={handleBackTop}
+          type="button"
+          aria-label="回到顶部"
+        >
+          <Icon name="chevronRight" size={20} />
+        </button>
+      )}
 
       {/* Model detail bottom sheet */}
       <ModelDetail model={selectedModel} open={!!selectedModel} onClose={handleCloseDetail} />

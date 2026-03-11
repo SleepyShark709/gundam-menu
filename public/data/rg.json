@@ -78,7 +78,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5740/"
   },
   {
-    "id": "rg-007",
+    "id": "rg-l-068",
     "series": "rg",
     "number": 7,
     "name": "RG 1/144 GAT-X105强袭高达",
@@ -86,12 +86,12 @@
     "price": 2200,
     "priceTaxFree": 2000,
     "releaseDate": "2012-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4777_s_przgiog1fwci4cr42i9smbg6suzk.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000078186"
   },
   {
-    "id": "rg-008",
+    "id": "rg-l-069",
     "series": "rg",
     "number": 8,
     "name": "RG 1/144 GAT-X105强袭高达 非活性模式",
@@ -99,12 +99,12 @@
     "price": 2200,
     "priceTaxFree": 2000,
     "releaseDate": "2012-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4770_s_hv05nnlplz4ny3jl0x46hn7p7nk2.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000112766"
   },
   {
-    "id": "rg-009",
+    "id": "rg-007",
     "series": "rg",
     "number": 9,
     "name": "RG 1/144 RX-178 高达Mk-II（迪坦斯规格）",
@@ -117,7 +117,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2881/"
   },
   {
-    "id": "rg-010",
+    "id": "rg-008",
     "series": "rg",
     "number": 10,
     "name": "RG 1/144 RX-178 高达Mk-II（奥古规格）",
@@ -130,7 +130,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2882/"
   },
   {
-    "id": "rg-011",
+    "id": "rg-l-084",
     "series": "rg",
     "number": 11,
     "name": "RG 1/144 ZGMF-X10A 自由高达 非活性模式",
@@ -138,12 +138,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2012-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4776_s_923ns0dsjvj25n3uhcgy78ebsen4.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000132010"
   },
   {
-    "id": "rg-012",
+    "id": "rg-009",
     "series": "rg",
     "number": 12,
     "name": "RG 1/144 正义高达",
@@ -156,7 +156,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3726/"
   },
   {
-    "id": "rg-013",
+    "id": "rg-l-083",
     "series": "rg",
     "number": 13,
     "name": "RG 1/144 ZGMF-X09A 正义高达 非活性模式",
@@ -164,12 +164,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2012-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4792_s_rvvqfmsn5dnixtuzpxbkvz2du79c.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000132011"
   },
   {
-    "id": "rg-014",
+    "id": "rg-010",
     "series": "rg",
     "number": 14,
     "name": "RG 1/144 Z高达",
@@ -182,7 +182,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2883/"
   },
   {
-    "id": "rg-015",
+    "id": "rg-l-107",
     "series": "rg",
     "number": 15,
     "name": "ＲＧ 1/144 强袭嫣红＋ＨＧ 1/144  Ｉ.Ｗ.Ｓ.Ｐ.",
@@ -190,12 +190,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2013-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4803_s_mbc4v21dqaansr3nwiivby05ais5.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000114754"
   },
   {
-    "id": "rg-016",
+    "id": "rg-l-079",
     "series": "rg",
     "number": 16,
     "name": "ＲＧ 1/144 MSZ-006-3 Z高达3号机",
@@ -203,12 +203,12 @@
     "price": 3520,
     "priceTaxFree": 3200,
     "releaseDate": "2013-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4809_s_lj86e4y2t5ji51glautx080bi4in.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000113563"
   },
   {
-    "id": "rg-017",
+    "id": "rg-l-037",
     "series": "rg",
     "number": 17,
     "name": "RG 1/144 MS-06S 扎古II Ver.GFT",
@@ -216,12 +216,12 @@
     "price": 2619,
     "priceTaxFree": 2381,
     "releaseDate": "2013-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5658_o_1gpf5higu16cvv5n1l8rvlk1tde23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4775/"
   },
   {
-    "id": "rg-018",
+    "id": "rg-011",
     "series": "rg",
     "number": 18,
     "name": "RG 1/144 ZGMF-X42S 命运高达",
@@ -234,7 +234,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5802/"
   },
   {
-    "id": "rg-019",
+    "id": "rg-012",
     "series": "rg",
     "number": 19,
     "name": "RG 1/144 RX-78GP01 高达试作1号机吉翁花",
@@ -247,7 +247,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5840/"
   },
   {
-    "id": "rg-020",
+    "id": "rg-013",
     "series": "rg",
     "number": 20,
     "name": "RG 1/144 RX-78GP01Fb 高达试作1号机全推进型",
@@ -260,7 +260,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5841/"
   },
   {
-    "id": "rg-021",
+    "id": "rg-l-117",
     "series": "rg",
     "number": 21,
     "name": "RG 1/144 命运高达 非活性模式",
@@ -268,12 +268,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2013-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4824_s_1mntfgtnjzxb4ib4jm929hs3n8q2.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000128696"
   },
   {
-    "id": "rg-022",
+    "id": "rg-014",
     "series": "rg",
     "number": 22,
     "name": "RG 1/144 强袭自由高达",
@@ -286,7 +286,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5895/"
   },
   {
-    "id": "rg-023",
+    "id": "rg-l-031",
     "series": "rg",
     "number": 23,
     "name": "ＲＧ 1/144 强袭自由高达用 扩展效果组件“天空之翼”",
@@ -294,12 +294,12 @@
     "price": 2200,
     "priceTaxFree": 2000,
     "releaseDate": "2013-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4834_s_mtg79lzww8lf23hcxgpdv4f03wkt.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3893/"
   },
   {
-    "id": "rg-024",
+    "id": "rg-l-106",
     "series": "rg",
     "number": 24,
     "name": "ＲＧ 1/144 强袭自由高达 非活性模式",
@@ -307,12 +307,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2014-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4851_s_9ryxjhfft51srl22zmz8aa5yt28p.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000132012"
   },
   {
-    "id": "rg-025",
+    "id": "rg-015",
     "series": "rg",
     "number": 25,
     "name": "RG 1/144 GN-001 高达能天使",
@@ -325,7 +325,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_96/"
   },
   {
-    "id": "rg-026",
+    "id": "rg-l-099",
     "series": "rg",
     "number": 26,
     "name": "ＲＧ 1/144 高达能天使用修复零件套装",
@@ -333,12 +333,12 @@
     "price": 1980,
     "priceTaxFree": 1800,
     "releaseDate": "2014-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/VnnsO0yVy2cjKd6Y/NWCym93ZNRdndJpk.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000111843"
   },
   {
-    "id": "rg-027",
+    "id": "rg-l-095",
     "series": "rg",
     "number": 27,
     "name": "ＲＧ 1/144 高达能天使 （Trans-AM模式） 光泽注塑Ver.",
@@ -346,12 +346,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2014-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4865_s_c6huf64focucj3v353rgp37nfr88.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000122264"
   },
   {
-    "id": "rg-028",
+    "id": "rg-016",
     "series": "rg",
     "number": 28,
     "name": "RG 1/144 MSM-07S 夏亚专用兹寇克",
@@ -364,7 +364,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_151/"
   },
   {
-    "id": "rg-029",
+    "id": "rg-l-101",
     "series": "rg",
     "number": 29,
     "name": "ＲＧ 1/144 卡斯巴尔专用高达",
@@ -372,12 +372,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2014-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4877_s_gpkg915t7gwj9yl955jix10t72c2.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000112914"
   },
   {
-    "id": "rg-030",
+    "id": "rg-l-090",
     "series": "rg",
     "number": 30,
     "name": "ＲＧ 1/144 高达阿斯特蕾亚 型-Ｆ",
@@ -385,12 +385,12 @@
     "price": 4840,
     "priceTaxFree": 4400,
     "releaseDate": "2014-10",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4881_s_k3z56ahqp1i2vgmfe3e5f1cwjjj4.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000113094/"
   },
   {
-    "id": "rg-031",
+    "id": "rg-l-098",
     "series": "rg",
     "number": 31,
     "name": "ＲＧ 1/144 高达能天使用 高达阿斯特蕾亚零件套装",
@@ -398,12 +398,12 @@
     "price": 2420,
     "priceTaxFree": 2200,
     "releaseDate": "2014-10",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/QBeRR2pFxLwQBBEH/mnp1M6FJg7TV1KpX.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000225930/"
   },
   {
-    "id": "rg-032",
+    "id": "rg-017",
     "series": "rg",
     "number": 32,
     "name": "RG 1/144 XXXG-00W0 飞翼高达零式 EW",
@@ -416,7 +416,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_251/"
   },
   {
-    "id": "rg-033",
+    "id": "rg-l-087",
     "series": "rg",
     "number": 33,
     "name": "ＲＧ 1/144 飞翼高达零式 ＥＷ用 扩展效果组件 “炽天使之羽”",
@@ -424,12 +424,12 @@
     "price": 1870,
     "priceTaxFree": 1700,
     "releaseDate": "2015-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/aX4qmowR3gUFLJ64/fIPnx5AoiNbxwcNc.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000225931/"
   },
   {
-    "id": "rg-034",
+    "id": "rg-l-005",
     "series": "rg",
     "number": 34,
     "name": "RG 1/144 飞翼高达零式 EW 珍珠光泽Ver.",
@@ -437,12 +437,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2015-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5769_o_1gqr7hbqcfd31ueck3v19p4hos23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4891/"
   },
   {
-    "id": "rg-035",
+    "id": "rg-018",
     "series": "rg",
     "number": 35,
     "name": "RG 1/144 GN-0000+GNR-010 00升降机",
@@ -455,7 +455,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_317/"
   },
   {
-    "id": "rg-036",
+    "id": "rg-l-082",
     "series": "rg",
     "number": 36,
     "name": "ＲＧ 1/144 RX-78-3 Ｇ-３高达",
@@ -463,12 +463,12 @@
     "price": 2860,
     "priceTaxFree": 2600,
     "releaseDate": "2015-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4888_s_qlfyl2ml0dxhxvac9iuflzytntp9.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000095901"
   },
   {
-    "id": "rg-037",
+    "id": "rg-l-122",
     "series": "rg",
     "number": 37,
     "name": "ＲＧ 1/144 Trans-AM升降机 光泽注塑Ｖｅｒ．",
@@ -476,12 +476,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2015-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4899_s_7ufgt59qcjidj5pxtugbruquyey2.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000124969"
   },
   {
-    "id": "rg-038",
+    "id": "rg-l-006",
     "series": "rg",
     "number": 38,
     "name": "RG 1/144 RX-78-2 高达 配色透明",
@@ -489,12 +489,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2015-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5838_o_1gsoofpo61j461crmrok16bq1t9r23.JPG",
     "productUrl": "https://bandai-hobby.net/item/01_4967/"
   },
   {
-    "id": "rg-039",
+    "id": "rg-019",
     "series": "rg",
     "number": 39,
     "name": "RG 1/144 MBF-P02 高达异端红色机",
@@ -507,7 +507,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_387/"
   },
   {
-    "id": "rg-040",
+    "id": "rg-l-078",
     "series": "rg",
     "number": 40,
     "name": "ＲＧ 1/144 MSM-07 量产型兹寇克",
@@ -515,12 +515,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2015-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4912_s_77wv2p25gxezd1hm4f4v9w24fzuv.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000162572"
   },
   {
-    "id": "rg-041",
+    "id": "rg-l-093",
     "series": "rg",
     "number": 41,
     "name": "ＲＧ 1/144 高达异端 蓝色机",
@@ -528,12 +528,12 @@
     "price": 3080,
     "priceTaxFree": 2800,
     "releaseDate": "2015-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4925_s_dwqikhawqfmrxq3vuyo8s99ibfn9.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000114752"
   },
   {
-    "id": "rg-042",
+    "id": "rg-020",
     "series": "rg",
     "number": 42,
     "name": "RG 1/144 XXXG-01W 飞翼高达 EW",
@@ -546,7 +546,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_466/"
   },
   {
-    "id": "rg-043",
+    "id": "rg-021",
     "series": "rg",
     "number": 43,
     "name": "RG 1/144 GNT-0000 00量子",
@@ -559,7 +559,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_558/"
   },
   {
-    "id": "rg-044",
+    "id": "rg-l-094",
     "series": "rg",
     "number": 44,
     "name": "ＲＧ 1/144 高达异端金色机",
@@ -567,12 +567,12 @@
     "price": 3080,
     "priceTaxFree": 2800,
     "releaseDate": "2016-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4953_s_23owfcoob4m5m8f1oosgz7ehjsyv.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000145557"
   },
   {
-    "id": "rg-045",
+    "id": "rg-022",
     "series": "rg",
     "number": 45,
     "name": "RG 1/144 MSN-06S 新安州",
@@ -585,7 +585,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_660/"
   },
   {
-    "id": "rg-046",
+    "id": "rg-l-007",
     "series": "rg",
     "number": 46,
     "name": "RG 1/144 高达异端 红色机 电镀Ver.",
@@ -593,12 +593,12 @@
     "price": 4840,
     "priceTaxFree": 4400,
     "releaseDate": "2016-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_2838_s_no5izuy1woxqmlsp6l6o2h3hbchx.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_1903/"
   },
   {
-    "id": "rg-047",
+    "id": "rg-l-105",
     "series": "rg",
     "number": 47,
     "name": "ＲＧ 1/144 新安州用 扩展套装",
@@ -606,12 +606,12 @@
     "price": 2310,
     "priceTaxFree": 2100,
     "releaseDate": "2016-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/6djy01U9sDiNyOoT/csapc4h9H5GvMuBA.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000225937/"
   },
   {
-    "id": "rg-048",
+    "id": "rg-l-008",
     "series": "rg",
     "number": 48,
     "name": "RG 1/144 高达异端 蓝色机 电镀Ver.",
@@ -619,12 +619,12 @@
     "price": 4840,
     "priceTaxFree": 4400,
     "releaseDate": "2016-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_2842_s_355l0zjigyyuc9kaaq925hid1flb.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_1908/"
   },
   {
-    "id": "rg-049",
+    "id": "rg-l-009",
     "series": "rg",
     "number": 49,
     "name": "RG 1/144 高达能天使 Trans-AM透明Ver.",
@@ -632,12 +632,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2016-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5709_o_1gqbkc37qi2evln1scog1c112e23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4826/"
   },
   {
-    "id": "rg-050",
+    "id": "rg-023",
     "series": "rg",
     "number": 50,
     "name": "RG 1/144 GAT-X105B/FP 创战强袭高达 全装备",
@@ -650,7 +650,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_756/"
   },
   {
-    "id": "rg-051",
+    "id": "rg-l-112",
     "series": "rg",
     "number": 51,
     "name": "ＲＧ 1/144 00高达七剑",
@@ -658,12 +658,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2016-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4974_s_4i7kds33645l4wnn2jjlwxxx0icn.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000118462"
   },
   {
-    "id": "rg-052",
+    "id": "rg-024",
     "series": "rg",
     "number": 52,
     "name": "RG 1/144 高达异端 金色机天(天皇)",
@@ -676,7 +676,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_833/"
   },
   {
-    "id": "rg-053",
+    "id": "rg-l-096",
     "series": "rg",
     "number": 53,
     "name": "ＲＧ 1/144 高达能天使 修复II",
@@ -684,12 +684,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2017-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_1785_o_1b7icnv6260svujv4a13ej1j4q28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000111587/"
   },
   {
-    "id": "rg-054",
+    "id": "rg-l-115",
     "series": "rg",
     "number": 54,
     "name": "ＲＧ 1/144 00量子全刃",
@@ -697,12 +697,12 @@
     "price": 3520,
     "priceTaxFree": 3200,
     "releaseDate": "2017-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_1799_o_1b9f1ujo4u1h1d2i5rdh6117bk28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000113021/"
   },
   {
-    "id": "rg-055",
+    "id": "rg-l-088",
     "series": "rg",
     "number": 55,
     "name": "ＲＧ 1/144 高达Ｍｋ-II ＲＧ限定配色Ｖｅｒ．",
@@ -710,12 +710,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2017-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2045_o_1bi5nju41ao5179j1fda1dge17vt28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000114995/"
   },
   {
-    "id": "rg-056",
+    "id": "rg-l-038",
     "series": "rg",
     "number": 56,
     "name": "RG 1/144 高达基地限定 新安州 [金属光泽注塑]",
@@ -728,7 +728,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1919/"
   },
   {
-    "id": "rg-057",
+    "id": "rg-l-109",
     "series": "rg",
     "number": 57,
     "name": "ＲＧ 1/144 Z高达 ＲＧ限定配色Ｖｅｒ．",
@@ -736,12 +736,12 @@
     "price": 3520,
     "priceTaxFree": 3200,
     "releaseDate": "2017-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2046_o_1bi5oef4bg9slln1nis5us9qa28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000115519/"
   },
   {
-    "id": "rg-058",
+    "id": "rg-025",
     "series": "rg",
     "number": 58,
     "name": "RG 1/144 独角兽高达",
@@ -754,7 +754,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1085/"
   },
   {
-    "id": "rg-059",
+    "id": "rg-l-010",
     "series": "rg",
     "number": 59,
     "name": "RG 1/144 独角兽高达［高级版”独角兽模式”Box］",
@@ -762,12 +762,12 @@
     "price": 4180,
     "priceTaxFree": 3800,
     "releaseDate": "2017-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2018_o_1bmccv8451enqsg1qpgi19tqn28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_1086/"
   },
   {
-    "id": "rg-060",
+    "id": "rg-l-091",
     "series": "rg",
     "number": 60,
     "name": "RG 1/144 高达异端 金色机天",
@@ -775,12 +775,12 @@
     "price": 3520,
     "priceTaxFree": 3200,
     "releaseDate": "2017-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2077_o_1bm4kj4i26cn119tel01qcm6bh28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000116090/"
   },
   {
-    "id": "rg-061",
+    "id": "rg-l-039",
     "series": "rg",
     "number": 61,
     "name": "RG 1/144 高达基地限定 RX-0 独角兽高达 Ver.TWC",
@@ -793,7 +793,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1926/"
   },
   {
-    "id": "rg-062",
+    "id": "rg-026",
     "series": "rg",
     "number": 62,
     "name": "RG 1/144 MS-06R-2 约翰尼·莱登专用扎古II",
@@ -806,7 +806,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1158/"
   },
   {
-    "id": "rg-063",
+    "id": "rg-l-011",
     "series": "rg",
     "number": 63,
     "name": "RG 1/144 新安州[透明配色]",
@@ -814,12 +814,12 @@
     "price": 4180,
     "priceTaxFree": 3800,
     "releaseDate": "2017-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_2883_s_cxzb2fjocq156e61o6p3a4438ymr.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_1950/"
   },
   {
-    "id": "rg-064",
+    "id": "rg-l-124",
     "series": "rg",
     "number": 64,
     "name": "ＲＧ 1/144 创战强袭高达 全装备（RG系统配色）",
@@ -827,12 +827,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2017-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2083_o_1bn5c5r2ldhq1e1adl8ftj12628.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000116766/"
   },
   {
-    "id": "rg-065",
+    "id": "rg-l-040",
     "series": "rg",
     "number": 65,
     "name": "RG 1/144 高达基地限定 飞翼高达零式 EW [透明配色]",
@@ -845,7 +845,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1910/"
   },
   {
-    "id": "rg-066",
+    "id": "rg-l-113",
     "series": "rg",
     "number": 66,
     "name": "ＲＧ 1/144 00高达七剑/G 检查型",
@@ -853,12 +853,12 @@
     "price": 3850,
     "priceTaxFree": 3500,
     "releaseDate": "2017-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2164_o_1bs8489jv1cbj79vcse14ev1nak28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000118644/"
   },
   {
-    "id": "rg-067",
+    "id": "rg-l-114",
     "series": "rg",
     "number": 67,
     "name": "ＲＧ 1/144 00量子（Trans-AM模式） [金属光泽注塑]",
@@ -866,12 +866,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2017-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2163_o_1bshq63s61db611vt2pd15vkehj28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000118869/"
   },
   {
-    "id": "rg-068",
+    "id": "rg-l-074",
     "series": "rg",
     "number": 68,
     "name": "ＲＧ 1/144 MS-06R-1A 真·松永专用扎古II",
@@ -879,12 +879,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2018-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2190_o_1bvm2cub2n5c170rsgk1k2omm128.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000119390/"
   },
   {
-    "id": "rg-069",
+    "id": "rg-l-012",
     "series": "rg",
     "number": 69,
     "name": "RG 1/144 00升降机[透明配色]",
@@ -892,12 +892,12 @@
     "price": 3850,
     "priceTaxFree": 3500,
     "releaseDate": "2018-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3136_o_1d2a1b90o5n9127m1ihn10iqdqn28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2189/"
   },
   {
-    "id": "rg-070",
+    "id": "rg-l-108",
     "series": "rg",
     "number": 70,
     "name": "ＲＧ 1/144 Z高达 (生物传感器配色)",
@@ -905,12 +905,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2018-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2216_o_1c1cm7bfu1e961ndpk6t15alaaj28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000121105/"
   },
   {
-    "id": "rg-071",
+    "id": "rg-l-003",
     "series": "rg",
     "number": 71,
     "name": "RG 1/144 独角兽高达 (Bande DessinéeVer.)",
@@ -918,12 +918,12 @@
     "price": 4400,
     "priceTaxFree": 4000,
     "releaseDate": "2018-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2220_o_1c6c48qkfbccmuugdtqrfuj928.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_1290/"
   },
   {
-    "id": "rg-072",
+    "id": "rg-027",
     "series": "rg",
     "number": 72,
     "name": "RG 1/144 独角兽高达2号机 报丧女妖命运女神",
@@ -936,7 +936,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1259/"
   },
   {
-    "id": "rg-073",
+    "id": "rg-l-013",
     "series": "rg",
     "number": 73,
     "name": "RG 1/144 独角兽高达2号机 报丧女妖命运女神［高级版”独角兽模式”Box］",
@@ -944,12 +944,12 @@
     "price": 4400,
     "priceTaxFree": 4000,
     "releaseDate": "2018-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2192_o_1c6c4jkat1fgqbg6hip1jn21lak28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_1260/"
   },
   {
-    "id": "rg-074",
+    "id": "rg-l-067",
     "series": "rg",
     "number": 74,
     "name": "【三连支架底座付き】ＲＧ 1/144 黑色三连星专用扎古II ３機套装",
@@ -957,12 +957,12 @@
     "price": 9900,
     "priceTaxFree": 9000,
     "releaseDate": "2018-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2267_o_1c5im5eg3dkovs0pcvm19dvt2d.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000123736/"
   },
   {
-    "id": "rg-075",
+    "id": "rg-l-076",
     "series": "rg",
     "number": 75,
     "name": "ＲＧ 1/144 MS-06R-1A 黑色三连星专用扎古II",
@@ -970,12 +970,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2018-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2266_o_1c5il5aupor6ad7bspchh1igc28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000123735/"
   },
   {
-    "id": "rg-076",
+    "id": "rg-028",
     "series": "rg",
     "number": 76,
     "name": "RG 1/144 多鲁基斯 EW",
@@ -988,7 +988,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1299/"
   },
   {
-    "id": "rg-077",
+    "id": "rg-l-072",
     "series": "rg",
     "number": 77,
     "name": "ＲＧ 1/144 MS-06F 扎古·布雷型",
@@ -996,12 +996,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2018-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2298_o_1c8n7r16ln5d99aq2k7u11r9k28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000123858/"
   },
   {
-    "id": "rg-078",
+    "id": "rg-l-041",
     "series": "rg",
     "number": 78,
     "name": "RG 1/144 高达基地限定 RX-0 独角兽高达(毁灭模式) Ver.TWC(LIGHTING MODEL)",
@@ -1014,7 +1014,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1899/"
   },
   {
-    "id": "rg-079",
+    "id": "rg-l-100",
     "series": "rg",
     "number": 79,
     "name": "RG 1/144 高达基地限定 独角兽高达 [金色涂装]",
@@ -1027,7 +1027,7 @@
     "productUrl": "https://www.gundam-base.net/products/details.php?detail=2927"
   },
   {
-    "id": "rg-080",
+    "id": "rg-029",
     "series": "rg",
     "number": 80,
     "name": "RG 1/144 沙扎比",
@@ -1040,7 +1040,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_1408/"
   },
   {
-    "id": "rg-081",
+    "id": "rg-l-086",
     "series": "rg",
     "number": 81,
     "name": "ＲＧ 1/144 飞翼高达零式 ＥＷ & 双刺枪［钛金属涂装］",
@@ -1048,12 +1048,12 @@
     "price": 7260,
     "priceTaxFree": 6600,
     "releaseDate": "2018-10",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2901_o_1ci3m62n3119qb4d11m9hvi7np28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000127041"
   },
   {
-    "id": "rg-082",
+    "id": "rg-l-102",
     "series": "rg",
     "number": 82,
     "name": "ＲＧ 1/144 加比·哈扎德专用扎古II",
@@ -1061,12 +1061,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2018-10",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2923_o_1cjdd1spr191l16tc1pn31uvvmf928.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000127155"
   },
   {
-    "id": "rg-083",
+    "id": "rg-l-118",
     "series": "rg",
     "number": 83,
     "name": "ＲＧ 1/144 多鲁基斯 ＥＷ［钛金属涂装］",
@@ -1074,12 +1074,12 @@
     "price": 6820,
     "priceTaxFree": 6200,
     "releaseDate": "2018-10",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_2900_o_1ci3m1e791jiv149a1pd51p1013hp28.jpg",
     "productUrl": "http://p-bandai.jp/item/item-1000127040"
   },
   {
-    "id": "rg-084",
+    "id": "rg-l-014",
     "series": "rg",
     "number": 84,
     "name": "RG 1/144 高达异端 金色机天(天皇) [特殊涂装]",
@@ -1087,12 +1087,12 @@
     "price": 6930,
     "priceTaxFree": 6300,
     "releaseDate": "2018-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3137_o_1d2a1isap9rlqrq1m4qpqs6kt28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2190/"
   },
   {
-    "id": "rg-085",
+    "id": "rg-l-042",
     "series": "rg",
     "number": 85,
     "name": "RG 1/144 高达基地限定 00量子全刃 [透明配色]",
@@ -1105,7 +1105,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2114/"
   },
   {
-    "id": "rg-086",
+    "id": "rg-l-004",
     "series": "rg",
     "number": 86,
     "name": "ＲＧ 1/144 多鲁基斯II",
@@ -1113,12 +1113,12 @@
     "price": 3080,
     "priceTaxFree": 2800,
     "releaseDate": "2018-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3014_o_1cqifceggvlqe5c1q3i3ibhu23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2066/"
   },
   {
-    "id": "rg-087",
+    "id": "rg-030",
     "series": "rg",
     "number": 87,
     "name": "RG 1/144 全装甲独角兽高达",
@@ -1131,7 +1131,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2028/"
   },
   {
-    "id": "rg-088",
+    "id": "rg-l-015",
     "series": "rg",
     "number": 88,
     "name": "RG 1/144 高达异端 金色机天［特殊涂装］",
@@ -1139,12 +1139,12 @@
     "price": 6380,
     "priceTaxFree": 5800,
     "releaseDate": "2019-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5651_o_1gp4lnt8h1g9idb51ehs17tru2923.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4768/"
   },
   {
-    "id": "rg-089",
+    "id": "rg-l-126",
     "series": "rg",
     "number": 89,
     "name": "ＲＧ 1/144 独角兽高达2号机 报丧女妖命运女神 （最终决战版）",
@@ -1152,12 +1152,12 @@
     "price": 4400,
     "priceTaxFree": 4000,
     "releaseDate": "2019-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3071_o_1cs8gdfcsbddqc91kr2fdd1r1d28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000130551"
   },
   {
-    "id": "rg-090",
+    "id": "rg-l-043",
     "series": "rg",
     "number": 90,
     "name": "RG 1/144 高达基地限定 独角兽高达2号机 报丧女妖命运女神 (毁灭模式) (LIGHTING MODEL)",
@@ -1170,7 +1170,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2292/"
   },
   {
-    "id": "rg-091",
+    "id": "rg-l-129",
     "series": "rg",
     "number": 91,
     "name": "ＲＧ 1/144 扩展组件 武装装甲ＶＮ／ＢＳ",
@@ -1178,12 +1178,12 @@
     "price": 2090,
     "priceTaxFree": 1900,
     "releaseDate": "2019-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3145_o_1d339am9ckbe801001dkvnns28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000133044"
   },
   {
-    "id": "rg-092",
+    "id": "rg-l-073",
     "series": "rg",
     "number": 92,
     "name": "ＲＧ 1/144 MS-06R-1A 埃里克·曼斯菲尔德专用扎古II",
@@ -1191,12 +1191,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2019-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3119_o_1d1pookroab616m1qa917rk1lej28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000132743"
   },
   {
-    "id": "rg-093",
+    "id": "rg-031",
     "series": "rg",
     "number": 93,
     "name": "RG 1/144 海盗高达X1",
@@ -1209,7 +1209,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2251/"
   },
   {
-    "id": "rg-094",
+    "id": "rg-l-016",
     "series": "rg",
     "number": 94,
     "name": "RG 1/144 沙扎比 [透明配色]",
@@ -1217,12 +1217,12 @@
     "price": 5500,
     "priceTaxFree": 5000,
     "releaseDate": "2019-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3263_o_1gr076516dsoj111fpjt9a1r5c28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2326/"
   },
   {
-    "id": "rg-095",
+    "id": "rg-l-092",
     "series": "rg",
     "number": 95,
     "name": "RG 1/144 高达异端 金色机天 蜜娜",
@@ -1230,12 +1230,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2019-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3248_o_1d6soqa0n1q87pru10k8119p19k128.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000134497"
   },
   {
-    "id": "rg-096",
+    "id": "rg-l-097",
     "series": "rg",
     "number": 96,
     "name": "ＲＧ 1/144 高达能天使 修复III",
@@ -1243,12 +1243,12 @@
     "price": 3080,
     "priceTaxFree": 2800,
     "releaseDate": "2019-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3230_o_1d6a8lp7o14l3qmsed71kv5a5g28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000134189"
   },
   {
-    "id": "rg-097",
+    "id": "rg-l-120",
     "series": "rg",
     "number": 97,
     "name": "ＲＧ 1/144 多鲁基斯III",
@@ -1256,12 +1256,12 @@
     "price": 3410,
     "priceTaxFree": 3100,
     "releaseDate": "2019-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3299_o_1dab601661kcpfc2ep41qnl1oba28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000135281/"
   },
   {
-    "id": "rg-098",
+    "id": "rg-l-017",
     "series": "rg",
     "number": 98,
     "name": "ＲＧ 1/144 沙扎比［特殊涂装］",
@@ -1269,12 +1269,12 @@
     "price": 11770,
     "priceTaxFree": 10700,
     "releaseDate": "2019-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3274_o_1d8psi8skfbjgl01dvut8fuen28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2336/"
   },
   {
-    "id": "rg-099",
+    "id": "rg-032",
     "series": "rg",
     "number": 99,
     "name": "RG 1/144 ν高达",
@@ -1287,7 +1287,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2343/"
   },
   {
-    "id": "rg-100",
+    "id": "rg-l-123",
     "series": "rg",
     "number": 100,
     "name": "ＲＧ 1/144 完美强袭高达",
@@ -1295,12 +1295,12 @@
     "price": 4400,
     "priceTaxFree": 4000,
     "releaseDate": "2019-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3355_o_1dd8kic1j13vn1ihh14d23to12fr28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000136194"
   },
   {
-    "id": "rg-101",
+    "id": "rg-l-133",
     "series": "rg",
     "number": 101,
     "name": "ＲＧ 1/144 ν高达用双重·鳍状浮游炮扩展组件",
@@ -1308,12 +1308,12 @@
     "price": 1870,
     "priceTaxFree": 1700,
     "releaseDate": "2019-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3386_o_1detkone99dm136grie1aob1r8g28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000136789"
   },
   {
-    "id": "rg-102",
+    "id": "rg-l-044",
     "series": "rg",
     "number": 102,
     "name": "RG 1/144 高达基地限定 00量子全刃[Trans-AM透明]",
@@ -1326,7 +1326,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2648/"
   },
   {
-    "id": "rg-103",
+    "id": "rg-l-103",
     "series": "rg",
     "number": 103,
     "name": "ＲＧ 1/144 海盗高达Ｘ２",
@@ -1334,12 +1334,12 @@
     "price": 3190,
     "priceTaxFree": 2900,
     "releaseDate": "2019-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4982_s_ic2hgr9xq3uj895mv6slv0s2wh2t.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000142961/"
   },
   {
-    "id": "rg-104",
+    "id": "rg-l-032",
     "series": "rg",
     "number": 104,
     "name": "RG 1/144 ν高达 鳍状浮游炮效果套装",
@@ -1347,12 +1347,12 @@
     "price": 6600,
     "priceTaxFree": 6000,
     "releaseDate": "2019-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3456_o_1ds6l95of1h10t5j98cur1qv728.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2531/"
   },
   {
-    "id": "rg-105",
+    "id": "rg-l-075",
     "series": "rg",
     "number": 105,
     "name": "ＲＧ 1/144 MS-06R-1A 尤马·莱特宁专用扎古II",
@@ -1360,12 +1360,12 @@
     "price": 3630,
     "priceTaxFree": 3300,
     "releaseDate": "2020-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/154_4986_s_ilreuusotg3qe1y33usrcajrk4k1.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000145051"
   },
   {
-    "id": "rg-106",
+    "id": "rg-l-045",
     "series": "rg",
     "number": 106,
     "name": "RG 1/144 高达基地限定 ν高达[钛金属涂装]",
@@ -1378,7 +1378,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2734/"
   },
   {
-    "id": "rg-107",
+    "id": "rg-l-128",
     "series": "rg",
     "number": 107,
     "name": "ＲＧ 1/144 独角兽高达3号机 凤凰（NTVer.）",
@@ -1386,12 +1386,12 @@
     "price": 12760,
     "priceTaxFree": 11600,
     "releaseDate": "2020-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3533_o_1dn9seo4g4j87o918uj1rig1q5228.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000139902/"
   },
   {
-    "id": "rg-108",
+    "id": "rg-033",
     "series": "rg",
     "number": 108,
     "name": "RG 1/144 力量脉冲高达",
@@ -1404,7 +1404,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2712/"
   },
   {
-    "id": "rg-109",
+    "id": "rg-l-018",
     "series": "rg",
     "number": 109,
     "name": "ＲＧ 1/144 命运高达［钛金属涂装］",
@@ -1412,12 +1412,12 @@
     "price": 7920,
     "priceTaxFree": 7200,
     "releaseDate": "2020-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3784_o_1e0s6mmal1e2aobjq911co1oog28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2797/"
   },
   {
-    "id": "rg-110",
+    "id": "rg-l-119",
     "series": "rg",
     "number": 110,
     "name": "ＲＧ 1/144 多鲁基斯（ＴＶ动画配色Ver.）",
@@ -1425,12 +1425,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2020-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3783_o_1e0c8iqn41bot16iqd67gnnhjp28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000142878/"
   },
   {
-    "id": "rg-111",
+    "id": "rg-l-046",
     "series": "rg",
     "number": 111,
     "name": "RG 1/144 ν高达[透明配色] 首批限定包装",
@@ -1443,7 +1443,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_2995/"
   },
   {
-    "id": "rg-112",
+    "id": "rg-l-019",
     "series": "rg",
     "number": 112,
     "name": "ＲＧ 1/144 新安州［特殊涂装］",
@@ -1451,12 +1451,12 @@
     "price": 11770,
     "priceTaxFree": 10700,
     "releaseDate": "2020-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3806_o_1e2i83o2kis7u1772emi21lmr28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_2821/"
   },
   {
-    "id": "rg-113",
+    "id": "rg-l-047",
     "series": "rg",
     "number": 113,
     "name": "RG 1/144 高达基地限定 独角兽高达 完美独角兽",
@@ -1469,7 +1469,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3060/"
   },
   {
-    "id": "rg-114",
+    "id": "rg-l-131",
     "series": "rg",
     "number": 114,
     "name": "ＲＧ 1/144 ν高达ＨＷＳ",
@@ -1477,12 +1477,12 @@
     "price": 6600,
     "priceTaxFree": 6000,
     "releaseDate": "2020-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3958_o_1e9vgflbkhpjs191d9qglmsm528.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000146277/"
   },
   {
-    "id": "rg-115",
+    "id": "rg-l-132",
     "series": "rg",
     "number": 115,
     "name": "ＲＧ 1/144 ν高达ＨＷＳ扩展套装",
@@ -1490,12 +1490,12 @@
     "price": 1980,
     "priceTaxFree": 1800,
     "releaseDate": "2020-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_3959_o_1e9vgptse1ol5tejh8h1otn1poa2d.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000146303/"
   },
   {
-    "id": "rg-116",
+    "id": "rg-l-048",
     "series": "rg",
     "number": 116,
     "name": "RG 1/144 高达基地限定 高达能天使[Trans-AM透明]",
@@ -1508,7 +1508,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3338/"
   },
   {
-    "id": "rg-117",
+    "id": "rg-l-049",
     "series": "rg",
     "number": 117,
     "name": "RG 1/144 高达基地限定 00量子[Trans-AM透明]",
@@ -1521,7 +1521,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3337/"
   },
   {
-    "id": "rg-118",
+    "id": "rg-l-050",
     "series": "rg",
     "number": 118,
     "name": "RG 1/144 高达基地限定 00升降机[Trans-AM透明]",
@@ -1534,7 +1534,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3336/"
   },
   {
-    "id": "rg-119",
+    "id": "rg-l-110",
     "series": "rg",
     "number": 119,
     "name": "ＲＧ 1/144 剑装脉冲高达",
@@ -1542,12 +1542,12 @@
     "price": 3850,
     "priceTaxFree": 3500,
     "releaseDate": "2020-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4040_o_1ee845oui39mkvq1sj66ca1o6f28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000147802/"
   },
   {
-    "id": "rg-120",
+    "id": "rg-l-020",
     "series": "rg",
     "number": 120,
     "name": "GUNPLA 40th 纪念套装",
@@ -1555,12 +1555,12 @@
     "price": 5000,
     "priceTaxFree": 4545,
     "releaseDate": "2020-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4324_o_1eng7acmtj5b1rq91ka1m8aqrc28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3372/"
   },
   {
-    "id": "rg-121",
+    "id": "rg-034",
     "series": "rg",
     "number": 121,
     "name": "RG 1/144 吉翁号",
@@ -1573,7 +1573,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3306/"
   },
   {
-    "id": "rg-122",
+    "id": "rg-l-021",
     "series": "rg",
     "number": 122,
     "name": "ＲＧ 1/144 强袭自由高达［钛金属涂装］",
@@ -1581,12 +1581,12 @@
     "price": 9020,
     "priceTaxFree": 8200,
     "releaseDate": "2021-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4260_o_1erdn5m3t1bolvh01j4s5a1bbi23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3305/"
   },
   {
-    "id": "rg-123",
+    "id": "rg-l-033",
     "series": "rg",
     "number": 123,
     "name": "RG 1/144 机动战士高达 最后的射击 吉翁号效果套装",
@@ -1594,12 +1594,12 @@
     "price": 9900,
     "priceTaxFree": 9000,
     "releaseDate": "2021-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4262_o_1err17ic11dp7r7onbpmlf1n0n23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3307/"
   },
   {
-    "id": "rg-124",
+    "id": "rg-l-051",
     "series": "rg",
     "number": 124,
     "name": "RG 1/144 高达基地限定 强袭嫣红 大满贯装備型",
@@ -1612,7 +1612,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3414/"
   },
   {
-    "id": "rg-125",
+    "id": "rg-l-022",
     "series": "rg",
     "number": 125,
     "name": "RG 1/144 海盗高达X1[透明配色]",
@@ -1620,12 +1620,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2021-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4369_o_1esk8paoq1lp11fd19fh18ol1i9j28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3415/"
   },
   {
-    "id": "rg-126",
+    "id": "rg-l-023",
     "series": "rg",
     "number": 126,
     "name": "RG 1/144 力量脉冲高达[钛金属涂装]",
@@ -1633,12 +1633,12 @@
     "price": 7590,
     "priceTaxFree": 6900,
     "releaseDate": "2021-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4370_o_1esk90q63uvh18ja1rgqejolri28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3416/"
   },
   {
-    "id": "rg-127",
+    "id": "rg-l-024",
     "series": "rg",
     "number": 127,
     "name": "RG 1/144 海盗高达X1[钛金属涂装]",
@@ -1646,12 +1646,12 @@
     "price": 6050,
     "priceTaxFree": 5500,
     "releaseDate": "2021-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4410_o_1euidgc2ejqk1ftnir0hvu1l5428.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3456/"
   },
   {
-    "id": "rg-128",
+    "id": "rg-l-025",
     "series": "rg",
     "number": 128,
     "name": "RG 1/144 ν高达[透明配色]",
@@ -1659,12 +1659,12 @@
     "price": 5170,
     "priceTaxFree": 4700,
     "releaseDate": "2021-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4449_o_1f1mgmgp2iaqs7q1srrr0a12th2d.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3496/"
   },
   {
-    "id": "rg-129",
+    "id": "rg-035",
     "series": "rg",
     "number": 129,
     "name": "RG 1/144 飞翼高达",
@@ -1677,7 +1677,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3425/"
   },
   {
-    "id": "rg-130",
+    "id": "rg-l-121",
     "series": "rg",
     "number": 130,
     "name": "ＲＧ 1/144 多鲁基斯III［钛金属涂装］",
@@ -1685,12 +1685,12 @@
     "price": 7700,
     "priceTaxFree": 7000,
     "releaseDate": "2021-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4373_o_1et3hvc9q1inqdhf15qi71m1qfu28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000154310/"
   },
   {
-    "id": "rg-131",
+    "id": "rg-l-026",
     "series": "rg",
     "number": 131,
     "name": "RG 1/144 ν高达HWS [透明配色]",
@@ -1698,12 +1698,12 @@
     "price": 7150,
     "priceTaxFree": 6500,
     "releaseDate": "2021-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4637_o_1f91bp4nq1e9248212ma40dvvc28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_3683/"
   },
   {
-    "id": "rg-132",
+    "id": "rg-036",
     "series": "rg",
     "number": 132,
     "name": "RG 1/144 Hi-ν高达",
@@ -1716,7 +1716,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3524/"
   },
   {
-    "id": "rg-133",
+    "id": "rg-l-070",
     "series": "rg",
     "number": 133,
     "name": "ＲＧ 1/144 Hi-ν高达专用超级·超级火箭炮",
@@ -1724,12 +1724,12 @@
     "price": 2750,
     "priceTaxFree": 2500,
     "releaseDate": "2021-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4688_o_1fdf4akrt1du61o9d1rh0qnt14428.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000161850/"
   },
   {
-    "id": "rg-134",
+    "id": "rg-l-027",
     "series": "rg",
     "number": 134,
     "name": "RG 1/144 RX-78-2 高达 & 翔翼强袭高达 套装 [高达世界对比配色]",
@@ -1737,12 +1737,12 @@
     "price": 5720,
     "priceTaxFree": 5200,
     "releaseDate": "2021-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5652_o_1gp4ma6mkhbg1cf1m17q7pahr23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4769/"
   },
   {
-    "id": "rg-135",
+    "id": "rg-l-081",
     "series": "rg",
     "number": 135,
     "name": "ＲＧ 1/144 RX-78-2 高达（布莱特队定制）",
@@ -1750,12 +1750,12 @@
     "price": 3300,
     "priceTaxFree": 3000,
     "releaseDate": "2021-10",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4650_o_1fac9ump21fc51dh41q3c5jjnba2d.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000160956/"
   },
   {
-    "id": "rg-136",
+    "id": "rg-l-052",
     "series": "rg",
     "number": 136,
     "name": "RG 1/144 高达基地限定 吉翁号[透明配色]",
@@ -1768,7 +1768,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_3792/"
   },
   {
-    "id": "rg-137",
+    "id": "rg-l-130",
     "series": "rg",
     "number": 137,
     "name": "ＲＧ 1/144 高机动型扎古II（怪物队定制）",
@@ -1776,12 +1776,12 @@
     "price": 3850,
     "priceTaxFree": 3500,
     "releaseDate": "2021-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_4649_o_1fac9ntb7fnc1oe01kj21g6219q023.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000160954/"
   },
   {
-    "id": "rg-138",
+    "id": "rg-l-053",
     "series": "rg",
     "number": 138,
     "name": "RG 1/144 RX-93ff ν高达",
@@ -1789,12 +1789,12 @@
     "price": 5280,
     "priceTaxFree": 4800,
     "releaseDate": "2022-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5110_o_1fu9do98s1fcj131u2ob17rjaul23.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4189/"
   },
   {
-    "id": "rg-139",
+    "id": "rg-l-077",
     "series": "rg",
     "number": 139,
     "name": "ＲＧ 1/144 MS-06R-2 罗伯特·吉利亚姆专用扎古II",
@@ -1802,12 +1802,12 @@
     "price": 3630,
     "priceTaxFree": 3300,
     "releaseDate": "2022-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5056_o_1fre5cag61ldu1th830b1ncq1vq32d.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000169387/"
   },
   {
-    "id": "rg-140",
+    "id": "rg-l-054",
     "series": "rg",
     "number": 140,
     "name": "RG 1/144 高达基地限定 翔翼强袭高达 & 空中霸者 发射器/剑背包 套装[透明配色]",
@@ -1820,7 +1820,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_4250/"
   },
   {
-    "id": "rg-141",
+    "id": "rg-037",
     "series": "rg",
     "number": 141,
     "name": "RG 1/144 神高达",
@@ -1833,7 +1833,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_4104/"
   },
   {
-    "id": "rg-142",
+    "id": "rg-l-104",
     "series": "rg",
     "number": 142,
     "name": "ＲＧ 1/144 神高达用 扩展套装",
@@ -1841,12 +1841,12 @@
     "price": 3080,
     "priceTaxFree": 2800,
     "releaseDate": "2022-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5192_o_1g9jcbqu1obooqtsbebnr6np28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000177309/"
   },
   {
-    "id": "rg-143",
+    "id": "rg-l-055",
     "series": "rg",
     "number": 143,
     "name": "RG 1/144 高达基地限定 Hi-ν高达[钛金属涂装]",
@@ -1859,7 +1859,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_4121/"
   },
   {
-    "id": "rg-144",
+    "id": "rg-l-056",
     "series": "rg",
     "number": 144,
     "name": "RG 1/144 MSN-04FF 沙扎比",
@@ -1867,12 +1867,12 @@
     "price": 8910,
     "priceTaxFree": 8100,
     "releaseDate": "2023-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5806_o_1gs3jg8jcth15hfjcj1og01kr723.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4933/"
   },
   {
-    "id": "rg-145",
+    "id": "rg-038",
     "series": "rg",
     "number": 145,
     "name": "ＲＧ 1/144 命运脉冲",
@@ -1885,7 +1885,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_4371/"
   },
   {
-    "id": "rg-146",
+    "id": "rg-l-071",
     "series": "rg",
     "number": 146,
     "name": "ＲＧ 1/144 Hi-ν高达用 鳍状浮游炮效果",
@@ -1893,12 +1893,12 @@
     "price": 2970,
     "priceTaxFree": 2700,
     "releaseDate": "2023-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5847_o_1gu6jgeec2q3lv6rvaidn1e4k28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000190277/"
   },
   {
-    "id": "rg-147",
+    "id": "rg-l-057",
     "series": "rg",
     "number": 147,
     "name": "RG 1/144 高达基地限定 RX-0 独角兽高达 (最终决战版) [特殊涂装]",
@@ -1911,7 +1911,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5037/"
   },
   {
-    "id": "rg-148",
+    "id": "rg-039",
     "series": "rg",
     "number": 148,
     "name": "RG 1/144 高达艾比安",
@@ -1924,7 +1924,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_4923/"
   },
   {
-    "id": "rg-149",
+    "id": "rg-l-028",
     "series": "rg",
     "number": 149,
     "name": "『机动战士高达SEED』20周年記念MS套装[金属色]",
@@ -1932,12 +1932,12 @@
     "price": 8800,
     "priceTaxFree": 8000,
     "releaseDate": "2023-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6056_o_1hhbv83pq11d3lih1tqrd9ihrp28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_5199/"
   },
   {
-    "id": "rg-150",
+    "id": "rg-l-058",
     "series": "rg",
     "number": 150,
     "name": "RG 1/144  高达基地限定 ZGMF-X10A 自由高达 Ver.GCP",
@@ -1950,7 +1950,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5160/"
   },
   {
-    "id": "rg-151",
+    "id": "rg-l-059",
     "series": "rg",
     "number": 151,
     "name": "RG 1/144 GUNDAM SIDE-F限定 ν高达 (首批配色Ver.)",
@@ -1963,7 +1963,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5163/"
   },
   {
-    "id": "rg-152",
+    "id": "rg-l-116",
     "series": "rg",
     "number": 152,
     "name": "ＲＧ 1/144 00斩升降机",
@@ -1971,12 +1971,12 @@
     "price": 5280,
     "priceTaxFree": 4800,
     "releaseDate": "2024-01",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5975_o_1hcgt1ie81rh5hblsf158h66628.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000161849/"
   },
   {
-    "id": "rg-153",
+    "id": "rg-040",
     "series": "rg",
     "number": 153,
     "name": "RG 1/144 力量脉冲高达 SpecII",
@@ -1989,7 +1989,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5085/"
   },
   {
-    "id": "rg-154",
+    "id": "rg-l-060",
     "series": "rg",
     "number": 154,
     "name": "RG 1/144 高达基地限定 ZGMF-X10A 自由高达 Ver.GCP [透明配色]",
@@ -2002,7 +2002,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_7073/"
   },
   {
-    "id": "rg-155",
+    "id": "rg-l-061",
     "series": "rg",
     "number": 155,
     "name": "RG 1/144 RX-93ff ν高达 [透明配色]",
@@ -2010,12 +2010,12 @@
     "price": 5280,
     "priceTaxFree": 4800,
     "releaseDate": "2024-07",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6269_o_1i2o7htf35rsesrtt479kia28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_5423/"
   },
   {
-    "id": "rg-156",
+    "id": "rg-041",
     "series": "rg",
     "number": 156,
     "name": "RG 1/144 RX-78-2 高达 Ver.2.0",
@@ -2028,7 +2028,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5261/"
   },
   {
-    "id": "rg-157",
+    "id": "rg-l-080",
     "series": "rg",
     "number": 157,
     "name": "ＲＧ 1/144 RX-78-2 高达 Ver.2.0用武器套装",
@@ -2036,12 +2036,12 @@
     "price": 2200,
     "priceTaxFree": 2000,
     "releaseDate": "2024-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/zqa9wPy4wMJRJaTD/qfwStMwHviJBYrYg.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000209098/"
   },
   {
-    "id": "rg-158",
+    "id": "rg-l-062",
     "series": "rg",
     "number": 158,
     "name": "RG 1/144 高达基地限定 吉翁号 [特殊涂装]",
@@ -2054,7 +2054,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5428/"
   },
   {
-    "id": "rg-159",
+    "id": "rg-l-125",
     "series": "rg",
     "number": 159,
     "name": "ＲＧ 1/144 炮装脉冲高达ＳｐｅｃＩＩ",
@@ -2062,12 +2062,12 @@
     "price": 4400,
     "priceTaxFree": 4000,
     "releaseDate": "2024-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6272_o_1i321felred91jnn1ips4an1m2i28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000211054/"
   },
   {
-    "id": "rg-160",
+    "id": "rg-l-001",
     "series": "rg",
     "number": 160,
     "name": "RG 1/144 晓高达(大鹫装备)",
@@ -2075,12 +2075,12 @@
     "price": 8800,
     "priceTaxFree": 8000,
     "releaseDate": "2024-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6242_o_1iel63duucjpsta16na1pgscqs28.jpeg",
     "productUrl": "https://bandai-hobby.net/item/01_5394/"
   },
   {
-    "id": "rg-161",
+    "id": "rg-l-085",
     "series": "rg",
     "number": 161,
     "name": "ＲＧ 1/144 晓高达用不知火背包 & ＨＧ宙斯剪影用连接零件",
@@ -2088,12 +2088,12 @@
     "price": 4400,
     "priceTaxFree": 4000,
     "releaseDate": "2024-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6415_o_1id49sp6ofoj1vmk196bul41r5n28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000214960/"
   },
   {
-    "id": "rg-162",
+    "id": "rg-l-063",
     "series": "rg",
     "number": 162,
     "name": "RG 1/144 高达基地限定 沙扎比 [机械核心电镀]",
@@ -2106,7 +2106,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5531/"
   },
   {
-    "id": "rg-163",
+    "id": "rg-l-034",
     "series": "rg",
     "number": 163,
     "name": "RG 1/144 ν高达(双重·鳍状浮游炮装備型)",
@@ -2114,12 +2114,12 @@
     "price": 5940,
     "priceTaxFree": 5400,
     "releaseDate": "2024-12",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6371_o_1ieqe9jm619t51n6mt131e441ri928.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_5532/"
   },
   {
-    "id": "rg-164",
+    "id": "rg-l-127",
     "series": "rg",
     "number": 164,
     "name": "RG 1/144 独角兽高达2号机 报丧女妖命运女神 (最终决战版) [特殊涂装]",
@@ -2127,12 +2127,12 @@
     "price": 12650,
     "priceTaxFree": 11500,
     "releaseDate": "2025-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6422_o_1ieah5a8e1ki1g4hncsnnr160v28.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000216106/"
   },
   {
-    "id": "rg-165",
+    "id": "rg-l-064",
     "series": "rg",
     "number": 165,
     "name": "RG 1/144 高达基地限定 神高达 超级模式",
@@ -2145,7 +2145,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5995/"
   },
   {
-    "id": "rg-166",
+    "id": "rg-l-111",
     "series": "rg",
     "number": 166,
     "name": "RG 1/144 剑装脉冲高达ＳｐｅｃＩＩ",
@@ -2153,12 +2153,12 @@
     "price": 4180,
     "priceTaxFree": 3800,
     "releaseDate": "2025-03",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6492_o_1ijujm1jf1l0s1t7o1ghe156u1ll028.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000216105/"
   },
   {
-    "id": "rg-167",
+    "id": "rg-l-065",
     "series": "rg",
     "number": 167,
     "name": "RG 1/144 高达基地限定 RX-78-2 高达 Ver.2.0 [高达基地配色]",
@@ -2171,7 +2171,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5992/"
   },
   {
-    "id": "rg-168",
+    "id": "rg-l-089",
     "series": "rg",
     "number": 168,
     "name": "ＲＧ 1/144 高达雪崩能天使冲击",
@@ -2179,12 +2179,12 @@
     "price": 5500,
     "priceTaxFree": 5000,
     "releaseDate": "2025-06",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/Rhx422U4J5gpRqKG/OceXZxBeBdNxx89k.jpg",
     "productUrl": "https://p-bandai.jp/item/item-1000223115/"
   },
   {
-    "id": "rg-169",
+    "id": "rg-042",
     "series": "rg",
     "number": 169,
     "name": "RG 1/144 闪光高达",
@@ -2197,7 +2197,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5544/"
   },
   {
-    "id": "rg-170",
+    "id": "rg-l-029",
     "series": "rg",
     "number": 170,
     "name": "RG 1/144 MS-06S 扎古II [初音未来Ver.]",
@@ -2205,12 +2205,12 @@
     "price": 3850,
     "priceTaxFree": 3500,
     "releaseDate": "2025-08",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/03/VPyQfX8bgKyR4mQ4/HmmFccoCqVVf7VKv.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_6688/"
   },
   {
-    "id": "rg-171",
+    "id": "rg-l-002",
     "series": "rg",
     "number": 171,
     "name": "RG 1/144 G-3高达 Ver.2.0",
@@ -2218,12 +2218,12 @@
     "price": 4180,
     "priceTaxFree": 3800,
     "releaseDate": "2025-09",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/08/KNfcVqqyfY5JOoBU/UNe6VakSkSUmHduf.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_6854/"
   },
   {
-    "id": "rg-172",
+    "id": "rg-043",
     "series": "rg",
     "number": 172,
     "name": "RG 1/144 飞翼高达零式",
@@ -2236,7 +2236,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_5968/"
   },
   {
-    "id": "rg-173",
+    "id": "rg-l-035",
     "series": "rg",
     "number": 173,
     "name": "RG 1/144 Hi-ν高达专用超级·超级火箭炮&浮游炮展示套装",
@@ -2244,12 +2244,12 @@
     "price": 3080,
     "priceTaxFree": 2800,
     "releaseDate": "2025-11",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/10/tUmAiZ2Pml5yrNF5/iF3FgSjHRArS9q7B.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_6994/"
   },
   {
-    "id": "rg-174",
+    "id": "rg-l-036",
     "series": "rg",
     "number": 174,
     "name": "RG 1/144 高达异端 红龙",
@@ -2257,12 +2257,12 @@
     "price": 4950,
     "priceTaxFree": 4500,
     "releaseDate": "2026-02",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2025/11/GP0H7fmAxR7veXFC/4AR5aG4tLlBD1KGS.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_7047/"
   },
   {
-    "id": "rg-175",
+    "id": "rg-l-066",
     "series": "rg",
     "number": 175,
     "name": "RG 1/144 高达基地限定 高达艾比安 [特殊涂装]",
@@ -2275,7 +2275,7 @@
     "productUrl": "https://bandai-hobby.net/item/01_6981/"
   },
   {
-    "id": "rg-176",
+    "id": "rg-l-030",
     "series": "rg",
     "number": 176,
     "name": "RG 1/144 RX-78-2 高达 Ver.2.0 [初音未来Ver.]",
@@ -2283,7 +2283,7 @@
     "price": 4290,
     "priceTaxFree": 3900,
     "releaseDate": "2026-05",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "/hobby/jp/product/2026/01/WWEcki0vXFlyTgQP/pU5jFbhd0E4TEzWW.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_7091/"
   }

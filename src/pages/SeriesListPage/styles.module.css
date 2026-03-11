@@ -189,3 +189,31 @@
   color: var(--color-text-primary);
 }
 
+.backTopButton {
+  position: fixed;
+  right: var(--spacing-md);
+  bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0px));
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  color: var(--color-accent-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  z-index: 40;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.backTopButton svg {
+  transform: rotate(-90deg);
+}
+
+.backTopButton:active {
+  transform: scale(0.92);
+  background: var(--color-bg-tertiary);
+}
+

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useEffect, type ReactNode } from 'react';
 import { AnimatePresence, motion, useMotionValue, useTransform } from 'framer-motion';
 import styles from './styles.module.css';
 
@@ -11,6 +11,25 @@ interface BottomSheetProps {
 
 export default function BottomSheet({ open, onClose, children, title }: BottomSheetProps) {
   const y = useMotionValue(0);
+
+  // Lock body scroll when open
+  useEffect(() => {
+    if (!open) return;
+    const scrollY = window.scrollY;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${scrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.left = '';
+      document.body.style.right = '';
+      document.body.style.overflow = '';
+      window.scrollTo(0, scrollY);
+    };
+  }, [open]);
   const opacity = useTransform(y, [0, 200], [1, 0]);
 
   function handleDragEnd(_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { y: number } }) {
