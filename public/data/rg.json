@@ -1872,15 +1872,15 @@
     "productUrl": "https://bandai-hobby.net/item/01_4933/"
   },
   {
-    "id": "rg-038",
+    "id": "rg-l-134",
     "series": "rg",
-    "number": 38,
+    "number": 177,
     "name": "ＲＧ 1/144 命运脉冲",
     "nameJa": "ＲＧ 1/144 デスティニーインパルス",
     "price": 5060,
     "priceTaxFree": 4600,
     "releaseDate": "2023-04",
-    "isLimited": false,
+    "isLimited": true,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_5278_o_1gif2713e1fhm1ovg1rph11i32ir28.jpg",
     "productUrl": "https://bandai-hobby.net/item/01_4371/"
   },
@@ -1911,9 +1911,9 @@
     "productUrl": "https://bandai-hobby.net/item/01_5037/"
   },
   {
-    "id": "rg-039",
+    "id": "rg-038",
     "series": "rg",
-    "number": 39,
+    "number": 38,
     "name": "RG 1/144 高达艾比安",
     "nameJa": "RG 1/144 ガンダムエピオン",
     "price": 4620,
@@ -1976,9 +1976,9 @@
     "productUrl": "https://p-bandai.jp/item/item-1000161849/"
   },
   {
-    "id": "rg-040",
+    "id": "rg-039",
     "series": "rg",
-    "number": 40,
+    "number": 39,
     "name": "RG 1/144 力量脉冲高达 SpecII",
     "nameJa": "RG 1/144 フォースインパルスガンダム SpecII",
     "price": 3410,
@@ -2015,9 +2015,9 @@
     "productUrl": "https://bandai-hobby.net/item/01_5423/"
   },
   {
-    "id": "rg-041",
+    "id": "rg-040",
     "series": "rg",
-    "number": 41,
+    "number": 40,
     "name": "RG 1/144 RX-78-2 高达 Ver.2.0",
     "nameJa": "RG 1/144 RX-78-2 ガンダム Ver.2.0",
     "price": 3850,
@@ -2067,15 +2067,15 @@
     "productUrl": "https://p-bandai.jp/item/item-1000211054/"
   },
   {
-    "id": "rg-l-001",
+    "id": "rg-041",
     "series": "rg",
-    "number": 160,
+    "number": 41,
     "name": "RG 1/144 晓高达(大鹫装备)",
     "nameJa": "RG 1/144 アカツキガンダム(オオワシ装備)",
     "price": 8800,
     "priceTaxFree": 8000,
     "releaseDate": "2024-12",
-    "isLimited": true,
+    "isLimited": false,
     "imageUrl": "https://bandai-hobby.net/images/ecms_154_6242_o_1iel63duucjpsta16na1pgscqs28.jpeg",
     "productUrl": "https://bandai-hobby.net/item/01_5394/"
   },
