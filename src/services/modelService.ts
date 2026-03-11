@@ -5,7 +5,7 @@ const modelsCache = new Map<SeriesCode, GundamModel[]>();
 
 export async function fetchSeriesMeta(): Promise<SeriesMeta[]> {
   if (seriesMetaCache !== null) return seriesMetaCache;
-  const res = await fetch('/data/series-meta.json');
+  const res = await fetch(`${import.meta.env.BASE_URL}data/series-meta.json`);
   if (!res.ok) throw new Error(`Failed to fetch series-meta: ${res.status}`);
   return res.json() as Promise<SeriesMeta[]>;
 }
@@ -13,7 +13,7 @@ export async function fetchSeriesMeta(): Promise<SeriesMeta[]> {
 export async function fetchModels(seriesCode: SeriesCode): Promise<GundamModel[]> {
   const cached = modelsCache.get(seriesCode);
   if (cached !== undefined) return cached;
-  const res = await fetch(`/data/${seriesCode}.json`);
+  const res = await fetch(`${import.meta.env.BASE_URL}data/${seriesCode}.json`);
   if (!res.ok) throw new Error(`Failed to fetch models for ${seriesCode}: ${res.status}`);
   const data = (await res.json()) as GundamModel[];
   modelsCache.set(seriesCode, data);
