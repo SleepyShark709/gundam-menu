@@ -4,24 +4,15 @@ interface ImageProps {
   loading: 'lazy';
 }
 
-const CLOUDFRONT_HOST = 'https://d3bk8pkqsprcvh.cloudfront.net';
-const SIGN_API = '/api/get-signed-url';
-
-// Cache for signed URLs: path -> signedUrl
-const signedUrlCache = new Map<string, string>();
-
 /**
- * Rewrites image URLs based on their source:
- * - Old bandai-hobby.net direct image links -> use as-is (still live)
- * - CloudFront pathnames (e.g. /hobby/jp/...) -> full CloudFront URL (unsigned, may fail)
- * - Everything else -> passthrough
+ * Rewrites image URLs:
+ * - Local paths (images/...) -> prepend BASE_URL
+ * - External URLs (https://...) -> use as-is
  */
 function rewriteImageUrl(url: string): string {
-  // CloudFront pathname stored by scraper (e.g. /hobby/jp/product/...)
-  if (url.startsWith('/hobby/')) {
-    return `${CLOUDFRONT_HOST}${url}`;
+  if (url.startsWith('images/')) {
+    return `${import.meta.env.BASE_URL}${url}`;
   }
-
   return url;
 }
 
@@ -34,39 +25,9 @@ export function getImageProps(url: string): ImageProps {
 }
 
 /**
- * Attempts to get a fresh signed URL for CloudFront images.
- * Call this when an unsigned CloudFront URL fails to load.
- *
- * @param imageUrl - The image URL (can be a pathname like /hobby/... or full CloudFront URL)
- * @returns A signed URL string, or null if signing fails or the URL is not a CloudFront path
+ * No-op for local images. Kept for API compatibility.
  */
-export async function refreshSignedUrl(imageUrl: string): Promise<string | null> {
-  // Extract the pathname from a full URL, or use as-is if already a path
-  let path: string;
-  try {
-    const urlObj = new URL(imageUrl);
-    path = urlObj.pathname;
-  } catch {
-    path = imageUrl;
-  }
-
-  if (!path.startsWith('/hobby/')) return null;
-
-  // Check cache first
-  const cached = signedUrlCache.get(path);
-  if (cached) return cached;
-
-  try {
-    const res = await fetch(`${SIGN_API}?path=${encodeURIComponent(path)}`);
-    if (!res.ok) return null;
-    const data = await res.json();
-    if (data.signedUrl) {
-      signedUrlCache.set(path, data.signedUrl);
-      return data.signedUrl;
-    }
-  } catch {
-    // Signing failed -- caller should handle fallback
-  }
+export async function refreshSignedUrl(_imageUrl: string): Promise<string | null> {
   return null;
 }
 
