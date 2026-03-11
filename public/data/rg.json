@@ -106,7 +106,7 @@
   {
     "id": "rg-007",
     "series": "rg",
-    "number": 9,
+    "number": 7,
     "name": "RG 1/144 RX-178 高达Mk-II（迪坦斯规格）",
     "nameJa": "RG 1/144 RX-178 ガンダムMk-II（ティターンズ仕様）",
     "price": 2750,
@@ -119,7 +119,7 @@
   {
     "id": "rg-008",
     "series": "rg",
-    "number": 10,
+    "number": 8,
     "name": "RG 1/144 RX-178 高达Mk-II（奥古规格）",
     "nameJa": "RG 1/144 RX-178 ガンダムMk-II（エゥーゴ仕様）",
     "price": 3080,
@@ -145,7 +145,7 @@
   {
     "id": "rg-009",
     "series": "rg",
-    "number": 12,
+    "number": 9,
     "name": "RG 1/144 正义高达",
     "nameJa": "RG 1/144 ジャスティスガンダム",
     "price": 3080,
@@ -171,7 +171,7 @@
   {
     "id": "rg-010",
     "series": "rg",
-    "number": 14,
+    "number": 10,
     "name": "RG 1/144 Z高达",
     "nameJa": "RG 1/144 Zガンダム",
     "price": 3630,
@@ -223,7 +223,7 @@
   {
     "id": "rg-011",
     "series": "rg",
-    "number": 18,
+    "number": 11,
     "name": "RG 1/144 ZGMF-X42S 命运高达",
     "nameJa": "RG 1/144 ZGMF-X42S デスティニーガンダム",
     "price": 2750,
@@ -236,7 +236,7 @@
   {
     "id": "rg-012",
     "series": "rg",
-    "number": 19,
+    "number": 12,
     "name": "RG 1/144 RX-78GP01 高达试作1号机吉翁花",
     "nameJa": "RG 1/144 RX-78GP01 ガンダム試作1号機ゼフィランサス",
     "price": 2750,
@@ -249,7 +249,7 @@
   {
     "id": "rg-013",
     "series": "rg",
-    "number": 20,
+    "number": 13,
     "name": "RG 1/144 RX-78GP01Fb 高达试作1号机全推进型",
     "nameJa": "RG 1/144 RX-78GP01Fb ガンダム試作1号機フルバーニアン",
     "price": 3080,
@@ -275,7 +275,7 @@
   {
     "id": "rg-014",
     "series": "rg",
-    "number": 22,
+    "number": 14,
     "name": "RG 1/144 强袭自由高达",
     "nameJa": "RG 1/144 ストライクフリーダムガンダム",
     "price": 3300,
@@ -314,7 +314,7 @@
   {
     "id": "rg-015",
     "series": "rg",
-    "number": 25,
+    "number": 15,
     "name": "RG 1/144 GN-001 高达能天使",
     "nameJa": "RG 1/144 GN-001 ガンダムエクシア",
     "price": 3080,
@@ -353,7 +353,7 @@
   {
     "id": "rg-016",
     "series": "rg",
-    "number": 28,
+    "number": 16,
     "name": "RG 1/144 MSM-07S 夏亚专用兹寇克",
     "nameJa": "RG 1/144 MSM-07S シャア専用ズゴック",
     "price": 3080,
@@ -405,7 +405,7 @@
   {
     "id": "rg-017",
     "series": "rg",
-    "number": 32,
+    "number": 17,
     "name": "RG 1/144 XXXG-00W0 飞翼高达零式 EW",
     "nameJa": "RG 1/144 XXXG-00W0 ウイングガンダムゼロ EW",
     "price": 3080,
@@ -444,7 +444,7 @@
   {
     "id": "rg-018",
     "series": "rg",
-    "number": 35,
+    "number": 18,
     "name": "RG 1/144 GN-0000+GNR-010 00升降机",
     "nameJa": "RG 1/144 GN-0000+GNR-010 ダブルオーライザー",
     "price": 3630,
@@ -496,7 +496,7 @@
   {
     "id": "rg-019",
     "series": "rg",
-    "number": 39,
+    "number": 19,
     "name": "RG 1/144 MBF-P02 高达异端红色机",
     "nameJa": "RG 1/144 MBF-P02 ガンダムアストレイレッドフレーム",
     "price": 3080,
@@ -535,7 +535,7 @@
   {
     "id": "rg-020",
     "series": "rg",
-    "number": 42,
+    "number": 20,
     "name": "RG 1/144 XXXG-01W 飞翼高达 EW",
     "nameJa": "RG 1/144 XXXG-01W ウイングガンダム EW",
     "price": 3080,
@@ -548,7 +548,7 @@
   {
     "id": "rg-021",
     "series": "rg",
-    "number": 43,
+    "number": 21,
     "name": "RG 1/144 GNT-0000 00量子",
     "nameJa": "RG 1/144 GNT-0000 ダブルオークアンタ",
     "price": 3080,
@@ -574,7 +574,7 @@
   {
     "id": "rg-022",
     "series": "rg",
-    "number": 45,
+    "number": 22,
     "name": "RG 1/144 MSN-06S 新安州",
     "nameJa": "RG 1/144 MSN-06S シナンジュ",
     "price": 4180,
@@ -639,7 +639,7 @@
   {
     "id": "rg-023",
     "series": "rg",
-    "number": 50,
+    "number": 23,
     "name": "RG 1/144 GAT-X105B/FP 创战强袭高达 全装备",
     "nameJa": "RG 1/144 GAT-X105B/FP ビルドストライクガンダム フルパッケージ",
     "price": 2750,
@@ -665,7 +665,7 @@
   {
     "id": "rg-024",
     "series": "rg",
-    "number": 52,
+    "number": 24,
     "name": "RG 1/144 高达异端 金色机天(天皇)",
     "nameJa": "RG 1/144 ガンダムアストレイ ゴールドフレーム天ミナ",
     "price": 3850,
@@ -743,7 +743,7 @@
   {
     "id": "rg-025",
     "series": "rg",
-    "number": 58,
+    "number": 25,
     "name": "RG 1/144 独角兽高达",
     "nameJa": "RG 1/144 ユニコーンガンダム",
     "price": 4180,
@@ -795,7 +795,7 @@
   {
     "id": "rg-026",
     "series": "rg",
-    "number": 62,
+    "number": 26,
     "name": "RG 1/144 MS-06R-2 约翰尼·莱登专用扎古II",
     "nameJa": "RG 1/144 MS-06R-2 ジョニー・ライデン専用ザクII",
     "price": 3300,
@@ -925,7 +925,7 @@
   {
     "id": "rg-027",
     "series": "rg",
-    "number": 72,
+    "number": 27,
     "name": "RG 1/144 独角兽高达2号机 报丧女妖命运女神",
     "nameJa": "RG 1/144 ユニコーンガンダム2号機 バンシィ・ノルン",
     "price": 4730,
@@ -977,7 +977,7 @@
   {
     "id": "rg-028",
     "series": "rg",
-    "number": 76,
+    "number": 28,
     "name": "RG 1/144 多鲁基斯 EW",
     "nameJa": "RG 1/144 トールギス EW",
     "price": 3080,
@@ -1029,7 +1029,7 @@
   {
     "id": "rg-029",
     "series": "rg",
-    "number": 80,
+    "number": 29,
     "name": "RG 1/144 沙扎比",
     "nameJa": "RG 1/144 サザビー",
     "price": 5280,
@@ -1120,7 +1120,7 @@
   {
     "id": "rg-030",
     "series": "rg",
-    "number": 87,
+    "number": 30,
     "name": "RG 1/144 全装甲独角兽高达",
     "nameJa": "RG 1/144 フルアーマー・ユニコーンガンダム",
     "price": 6270,
@@ -1198,7 +1198,7 @@
   {
     "id": "rg-031",
     "series": "rg",
-    "number": 93,
+    "number": 31,
     "name": "RG 1/144 海盗高达X1",
     "nameJa": "RG 1/144 クロスボーン・ガンダムX1",
     "price": 2750,
@@ -1276,7 +1276,7 @@
   {
     "id": "rg-032",
     "series": "rg",
-    "number": 99,
+    "number": 32,
     "name": "RG 1/144 ν高达",
     "nameJa": "RG 1/144 νガンダム",
     "price": 4950,
@@ -1393,7 +1393,7 @@
   {
     "id": "rg-033",
     "series": "rg",
-    "number": 108,
+    "number": 33,
     "name": "RG 1/144 力量脉冲高达",
     "nameJa": "RG 1/144 フォースインパルスガンダム",
     "price": 3300,
@@ -1562,7 +1562,7 @@
   {
     "id": "rg-034",
     "series": "rg",
-    "number": 121,
+    "number": 34,
     "name": "RG 1/144 吉翁号",
     "nameJa": "RG 1/144 ジオング",
     "price": 6050,
@@ -1666,7 +1666,7 @@
   {
     "id": "rg-035",
     "series": "rg",
-    "number": 129,
+    "number": 35,
     "name": "RG 1/144 飞翼高达",
     "nameJa": "RG 1/144 ウイングガンダム",
     "price": 3520,
@@ -1705,7 +1705,7 @@
   {
     "id": "rg-036",
     "series": "rg",
-    "number": 132,
+    "number": 36,
     "name": "RG 1/144 Hi-ν高达",
     "nameJa": "RG 1/144 Hi-νガンダム",
     "price": 4950,
@@ -1822,7 +1822,7 @@
   {
     "id": "rg-037",
     "series": "rg",
-    "number": 141,
+    "number": 37,
     "name": "RG 1/144 神高达",
     "nameJa": "RG 1/144 ゴッドガンダム",
     "price": 3850,
@@ -1874,7 +1874,7 @@
   {
     "id": "rg-038",
     "series": "rg",
-    "number": 145,
+    "number": 38,
     "name": "ＲＧ 1/144 命运脉冲",
     "nameJa": "ＲＧ 1/144 デスティニーインパルス",
     "price": 5060,
@@ -1913,7 +1913,7 @@
   {
     "id": "rg-039",
     "series": "rg",
-    "number": 148,
+    "number": 39,
     "name": "RG 1/144 高达艾比安",
     "nameJa": "RG 1/144 ガンダムエピオン",
     "price": 4620,
@@ -1978,7 +1978,7 @@
   {
     "id": "rg-040",
     "series": "rg",
-    "number": 153,
+    "number": 40,
     "name": "RG 1/144 力量脉冲高达 SpecII",
     "nameJa": "RG 1/144 フォースインパルスガンダム SpecII",
     "price": 3410,
@@ -2017,7 +2017,7 @@
   {
     "id": "rg-041",
     "series": "rg",
-    "number": 156,
+    "number": 41,
     "name": "RG 1/144 RX-78-2 高达 Ver.2.0",
     "nameJa": "RG 1/144 RX-78-2 ガンダム Ver.2.0",
     "price": 3850,
@@ -2186,7 +2186,7 @@
   {
     "id": "rg-042",
     "series": "rg",
-    "number": 169,
+    "number": 42,
     "name": "RG 1/144 闪光高达",
     "nameJa": "RG 1/144 シャイニングガンダム",
     "price": 3850,
@@ -2225,7 +2225,7 @@
   {
     "id": "rg-043",
     "series": "rg",
-    "number": 172,
+    "number": 43,
     "name": "RG 1/144 飞翼高达零式",
     "nameJa": "RG 1/144 ウイングガンダムゼロ",
     "price": 4620,
