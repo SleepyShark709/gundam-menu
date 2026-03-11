@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   getFavorites,
   toggleFavorite as toggleFavoriteService,
   isFavorite as isFavoriteService,
+  migrateFavoritesIfNeeded,
 } from '../services/favoriteService';
 
 interface UseFavoritesResult {
@@ -13,6 +14,12 @@ interface UseFavoritesResult {
 
 export function useFavorites(): UseFavoritesResult {
   const [favorites, setFavorites] = useState<string[]>(() => getFavorites());
+
+  useEffect(() => {
+    migrateFavoritesIfNeeded().then(() => {
+      setFavorites(getFavorites());
+    });
+  }, []);
 
   const toggleFavorite = useCallback((modelId: string) => {
     toggleFavoriteService(modelId);

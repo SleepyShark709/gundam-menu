@@ -7,6 +7,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     host: true,
+    proxy: {
+      '/api/get-signed-url': {
+        target: 'https://assets-signedurl.bandai-hobby.net',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
   },
   resolve: {
     alias: {

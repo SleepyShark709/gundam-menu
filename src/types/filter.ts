@@ -1,6 +1,5 @@
 export interface FilterConfig {
   keyword?: string;
-  isLimited?: boolean | null;
   releaseDateFrom?: string;
   releaseDateTo?: string;
   numberFrom?: number;

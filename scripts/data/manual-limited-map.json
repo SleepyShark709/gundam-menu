@@ -1,0 +1,15 @@
+{
+  "_comment": "手动标注限定产品。格式：productUrl -> true/false。留空表示使用方案A自动判定。",
+  "overrides": {
+    "https://bandai-hobby.net/item/01_3893/": true,
+    "https://bandai-hobby.net/item/01_2531/": true,
+    "https://bandai-hobby.net/item/01_3307/": true,
+    "https://bandai-hobby.net/item/01_5532/": true,
+    "https://bandai-hobby.net/item/01_6994/": true,
+    "https://bandai-hobby.net/item/01_7047/": true,
+    "https://bandai-hobby.net/item/01_1290/": true,
+    "https://bandai-hobby.net/item/01_2066/": true,
+    "https://bandai-hobby.net/item/01_5394/": true,
+    "https://bandai-hobby.net/item/01_6854/": true
+  }
+}

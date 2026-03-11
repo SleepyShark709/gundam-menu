@@ -3,9 +3,11 @@
  *
  * Two-phase approach:
  *   Phase 1 (fast):  Iterate through ALL listing pages to collect product
- *                    names, images, and URLs. ~223 pages total, ~8 min.
- *   Phase 2 (slow):  Visit each product detail page to get price and release
- *                    date. ~2200 pages, ~35 min for HG. Skippable with --skip-details.
+ *                    names, images, URLs, prices, and dates. ~223 pages total.
+ *                    New architecture: listing pages include price and date
+ *                    directly, so most products get complete data here.
+ *   Phase 2 (conditional): Visit detail pages ONLY for products missing price
+ *                    (e.g. some P-Bandai items). Skippable with --skip-details.
  *
  * Usage:
  *   pnpm scrape                          # All series, with details
@@ -247,15 +249,33 @@ async function scrapeSeries(
       `[${series.toUpperCase()}] Phase 1 complete: ${basicProducts.length} products found.`,
     );
 
-    // ====== PHASE 2: Enrich with detail page data ======
+    // ====== PHASE 2: Enrich with detail page data (only for products missing data) ======
     let detailMap: Map<string, DetailPageData>;
 
-    if (config.skipDetails) {
-      console.log(`[${series.toUpperCase()}] Phase 2: SKIPPED (--skip-details)`);
+    // Determine which products still need detail page visits.
+    // New architecture: listing pages now include price and date, so most
+    // products already have complete data. We only visit detail pages for:
+    //   1. Products missing price (e.g. P-Bandai products that show no price on listing)
+    //   2. Products where --skip-details is NOT set
+    const productsNeedingDetails = basicProducts.filter(
+      (p) => p.price === undefined || p.price === 0,
+    );
+
+    const withListingData = basicProducts.length - productsNeedingDetails.length;
+    console.log(
+      `[${series.toUpperCase()}] Listing data: ${withListingData}/${basicProducts.length} products have price from listing page.`,
+    );
+
+    if (config.skipDetails || productsNeedingDetails.length === 0) {
+      if (config.skipDetails) {
+        console.log(`[${series.toUpperCase()}] Phase 2: SKIPPED (--skip-details)`);
+      } else {
+        console.log(`[${series.toUpperCase()}] Phase 2: SKIPPED (all products have listing data)`);
+      }
       detailMap = new Map();
     } else {
       console.log(
-        `\n[${series.toUpperCase()}] Phase 2: Scraping ${basicProducts.length} detail pages...`,
+        `\n[${series.toUpperCase()}] Phase 2: Scraping ${productsNeedingDetails.length} detail pages (products missing price)...`,
       );
 
       // Load existing data for resume mode
@@ -270,7 +290,7 @@ async function scrapeSeries(
 
       detailMap = await scrapeAllDetailPages(
         context,
-        basicProducts,
+        productsNeedingDetails,
         existingModels,
         series,
         config,
@@ -430,8 +450,12 @@ function buildGundamModels(
     if (!product.name.trim()) continue;
 
     const detail = detailMap.get(product.productUrl);
-    const price = detail?.price ?? 0;
-    const releaseDate = detail?.releaseDate ?? '';
+
+    // Priority: detail page data > listing page data > default
+    // New architecture: listing pages often have price and date, making
+    // detail page visits unnecessary for most products.
+    const price = detail?.price || product.price || 0;
+    const releaseDate = detail?.releaseDate || product.releaseDate || '';
     const isLimited =
       detail?.isLimited ?? detectLimited([product.name]);
 
@@ -440,6 +464,7 @@ function buildGundamModels(
       series,
       number: 0,
       name: product.name,
+      nameJa: product.name, // Scraped from Japanese site; same as name until translated
       price,
       priceTaxFree: calcTaxFreePrice(price),
       releaseDate,

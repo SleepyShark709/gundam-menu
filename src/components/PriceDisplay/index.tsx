@@ -7,6 +7,14 @@ interface PriceDisplayProps {
 }
 
 export default function PriceDisplay({ price, convertToYuan }: PriceDisplayProps) {
+  if (price === 0) {
+    return (
+      <div className={styles.wrapper}>
+        <span className={styles.unknownPrice}>价格未知</span>
+      </div>
+    );
+  }
+
   const taxFreePrice = calcTaxFree(price);
   const cnyPrice = convertToYuan ? convertToYuan(price) : null;
 

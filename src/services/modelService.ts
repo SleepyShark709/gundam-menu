@@ -26,14 +26,13 @@ export function filterModels(models: GundamModel[], filter: FilterConfig): Gunda
       const kw = filter.keyword.toLowerCase();
       const nameMatch =
         model.name.toLowerCase().includes(kw) ||
+        (model.nameJa?.toLowerCase().includes(kw) ?? false) ||
         (model.nameEn?.toLowerCase().includes(kw) ?? false) ||
         (model.tags?.some((t) => t.toLowerCase().includes(kw)) ?? false);
       if (!nameMatch) return false;
     }
 
-    if (filter.isLimited !== undefined && filter.isLimited !== null) {
-      if (model.isLimited !== filter.isLimited) return false;
-    }
+    // isLimited filter removed - handled by Tab UI
 
     if (filter.releaseDateFrom) {
       if (model.releaseDate < filter.releaseDateFrom) return false;

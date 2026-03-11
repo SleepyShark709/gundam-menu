@@ -20,6 +20,8 @@ export interface BasicProductInfo {
   name: string;
   imageUrl: string;
   productUrl: string;
+  price?: number;        // Extracted from listing page (if available)
+  releaseDate?: string;  // Extracted from listing page, "YYYY-MM" format
 }
 
 // ---------------------------------------------------------------------------
@@ -46,7 +48,8 @@ export interface GundamModel {
   id: string;             // e.g. "mg-001"
   series: SeriesCode;
   number: number;
-  name: string;
+  name: string;           // 中文名
+  nameJa: string;         // 日文原名
   price: number;          // JPY with tax (integer)
   priceTaxFree: number;   // price / 1.1, rounded to integer
   releaseDate: string;    // "YYYY-MM" or ""

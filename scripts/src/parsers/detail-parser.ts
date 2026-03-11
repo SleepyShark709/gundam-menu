@@ -97,8 +97,22 @@ export async function scrapeDetailPage(
       }
 
       // ------ Limited edition detection ------
-      const bodyText = document.body.textContent || '';
-      isLimited = limitedKeywords.some((kw: string) => bodyText.includes(kw));
+      // Only check product info area, NOT the entire body (which has nav/footer with "限定" text)
+      const productTexts: string[] = [];
+
+      // Check product title
+      const h1 = document.querySelector('h1');
+      if (h1) productTexts.push(h1.textContent || '');
+
+      // Check all dt/dd label pairs
+      labels.forEach((dt) => {
+        const dd = dt.nextElementSibling;
+        productTexts.push(dt.textContent || '');
+        if (dd) productTexts.push(dd.textContent || '');
+      });
+
+      const productText = productTexts.join(' ');
+      isLimited = limitedKeywords.some((kw: string) => productText.includes(kw));
 
       return { price, releaseDate, isLimited };
     },

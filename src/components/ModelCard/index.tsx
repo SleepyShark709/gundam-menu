@@ -4,7 +4,7 @@ import Badge from '../../design-system/Badge';
 import Skeleton from '../../design-system/Skeleton';
 import FavoriteButton from '../FavoriteButton';
 import PriceDisplay from '../PriceDisplay';
-import { getImageProps } from '../../utils/image';
+import { getImageProps, refreshSignedUrl } from '../../utils/image';
 import { formatDate } from '../../utils/format';
 import styles from './styles.module.css';
 
@@ -27,8 +27,10 @@ export default function ModelCard({
 }: ModelCardProps) {
   const [imgError, setImgError] = useState(false);
   const [imgLoading, setImgLoading] = useState(true);
+  const [imgRetried, setImgRetried] = useState(false);
 
   const imageProps = getImageProps(model.imageUrl);
+  const [imgSrc, setImgSrc] = useState(imageProps.src);
 
   function handleClick() {
     onSelect(model);
@@ -45,7 +47,18 @@ export default function ModelCard({
     setImgLoading(false);
   }
 
-  function handleImgError() {
+  async function handleImgError() {
+    // If the image is a CloudFront URL and we haven't retried yet,
+    // try to get a fresh signed URL via the signing API
+    if (!imgRetried && (model.imageUrl.startsWith('/hobby/') || model.imageUrl.includes('cloudfront.net'))) {
+      setImgRetried(true);
+      const newUrl = await refreshSignedUrl(model.imageUrl);
+      if (newUrl) {
+        setImgSrc(newUrl);
+        setImgLoading(true);
+        return;
+      }
+    }
     setImgError(true);
     setImgLoading(false);
   }
@@ -71,7 +84,7 @@ export default function ModelCard({
         {!imgError && (
           <img
             className={[styles.image, imgLoading ? styles.imageHidden : ''].join(' ')}
-            src={imageProps.src}
+            src={imgSrc}
             referrerPolicy={imageProps.referrerPolicy}
             loading={imageProps.loading}
             alt={model.nameEn ?? model.name}

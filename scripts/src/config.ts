@@ -34,6 +34,15 @@ export const SELECTORS = {
   /** Product image within a card. Alt = product name, src = thumbnail. */
   productImage: '.p-card__img img',
 
+  /** Product name within a card (new architecture). */
+  listName: '.p-card__tit',
+
+  /** Product price within a card (new architecture). e.g. "4,950円(税10%込)" */
+  listPrice: '.p-card__price',
+
+  /** Product release date within a card (new architecture). Note: single underscore. e.g. "2026年02月" */
+  listDate: '.p-card_date',
+
   /** Pagination links (e.g. ?p=2, ?p=3 ... ?p=142). */
   paginationLink: 'a[href*="?p="]',
 
@@ -48,6 +57,13 @@ export const SELECTORS = {
   /** Label values (dd) in the product info table on the detail page. */
   detailValue: 'dd.pg-products__labelTxt',
 } as const;
+
+// ---------------------------------------------------------------------------
+// CloudFront image hosting
+// ---------------------------------------------------------------------------
+
+export const CLOUDFRONT_HOST = 'https://d3bk8pkqsprcvh.cloudfront.net';
+export const IMAGE_SIGN_API = 'https://assets-signedurl.bandai-hobby.net/get-signed-url';
 
 // ---------------------------------------------------------------------------
 // Text patterns for parsing

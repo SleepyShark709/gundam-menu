@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { GundamModel } from '../../types';
 import BottomSheet from '../../design-system/BottomSheet';
 import Badge from '../../design-system/Badge';
@@ -11,7 +11,7 @@ import { useFavorites } from '../../hooks/useFavorites';
 import { useExchangeRate } from '../../hooks/useExchangeRate';
 import { formatJPY, formatCNY } from '../../utils/price';
 import { formatDate } from '../../utils/format';
-import { getImageProps } from '../../utils/image';
+import { getImageProps, refreshSignedUrl } from '../../utils/image';
 import styles from './styles.module.css';
 
 interface ModelDetailProps {
@@ -22,8 +22,31 @@ interface ModelDetailProps {
 
 export default function ModelDetail({ model, open, onClose }: ModelDetailProps) {
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imgRetried, setImgRetried] = useState(false);
+  const [imgSrc, setImgSrc] = useState('');
   const { isFavorite, toggleFavorite } = useFavorites();
   const { convertToYuan } = useExchangeRate();
+
+  // Reset image state when model changes
+  useEffect(() => {
+    if (model) {
+      const props = getImageProps(model.imageUrl);
+      setImgSrc(props.src);
+      setImageLoaded(false);
+      setImgRetried(false);
+    }
+  }, [model?.id]);
+
+  async function handleImgError() {
+    if (model && !imgRetried && (model.imageUrl.startsWith('/hobby/') || model.imageUrl.includes('cloudfront.net'))) {
+      setImgRetried(true);
+      const newUrl = await refreshSignedUrl(model.imageUrl);
+      if (newUrl) {
+        setImgSrc(newUrl);
+        return;
+      }
+    }
+  }
 
   function handleOpenProductUrl() {
     if (model?.productUrl) {
@@ -51,16 +74,22 @@ export default function ModelDetail({ model, open, onClose }: ModelDetailProps) 
               <Skeleton variant="image" className={styles.imageSkeleton} />
             )}
             <img
-              {...getImageProps(model.imageUrl)}
+              src={imgSrc || getImageProps(model.imageUrl).src}
+              referrerPolicy="no-referrer"
+              loading="lazy"
               alt={model.name}
               className={[styles.image, imageLoaded ? styles.imageVisible : styles.imageHidden].join(' ')}
               onLoad={() => setImageLoaded(true)}
+              onError={handleImgError}
             />
           </div>
 
           {/* Model name */}
           <div className={styles.nameSection}>
             <h2 className={styles.name}>{model.name}</h2>
+            {model.nameJa && model.nameJa !== model.name && (
+              <p className={styles.nameEn}>{model.nameJa}</p>
+            )}
             {model.nameEn && (
               <p className={styles.nameEn}>{model.nameEn}</p>
             )}
@@ -83,18 +112,27 @@ export default function ModelDetail({ model, open, onClose }: ModelDetailProps) 
 
           {/* Price section */}
           <div className={styles.priceSection}>
-            <div className={styles.priceRow}>
-              <span className={styles.priceLabel}>JPY含税</span>
-              <span className={styles.priceJPY}>{formatJPY(model.price)}</span>
-            </div>
-            <div className={styles.priceRow}>
-              <span className={styles.priceLabel}>人民币约</span>
-              <span className={styles.priceCNY}>{formatCNY(Number(convertToYuan(model.price)))}</span>
-            </div>
-            <div className={styles.priceRow}>
-              <span className={styles.priceLabel}>日元免税</span>
-              <span className={styles.priceTaxFree}>{formatJPY(model.priceTaxFree)}</span>
-            </div>
+            {model.price === 0 ? (
+              <div className={styles.priceRow}>
+                <span className={styles.priceLabel}>价格</span>
+                <span className={styles.priceUnknown}>价格未知</span>
+              </div>
+            ) : (
+              <>
+                <div className={styles.priceRow}>
+                  <span className={styles.priceLabel}>JPY含税</span>
+                  <span className={styles.priceJPY}>{formatJPY(model.price)}</span>
+                </div>
+                <div className={styles.priceRow}>
+                  <span className={styles.priceLabel}>人民币约</span>
+                  <span className={styles.priceCNY}>{formatCNY(Number(convertToYuan(model.price)))}</span>
+                </div>
+                <div className={styles.priceRow}>
+                  <span className={styles.priceLabel}>日元免税</span>
+                  <span className={styles.priceTaxFree}>{formatJPY(model.priceTaxFree)}</span>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Release date */}

@@ -4,10 +4,17 @@
  * Crawls ALL pages of a Bandai brand listing (e.g. /brand/mg/?p=1 ... ?p=57)
  * and extracts basic product info from each card element.
  *
- * Card structure on bandai-hobby.net:
+ * Card structure on bandai-hobby.net (new architecture):
  *   <a href="https://bandai-hobby.net/item/01_XXXX/" class="c-card p-card -landscape">
  *     <div class="p-card__img">
- *       <img src="https://d3bk8pkqsprcvh.cloudfront.net/..." alt="MG 1/100 ...">
+ *       <img src="https://d3bk8pkqsprcvh.cloudfront.net/...?Expires=...&Signature=..." alt="...">
+ *     </div>
+ *     <div class="p-card__explain -landscape">
+ *       <div class="p-card__tit">RG 1/144 ...</div>
+ *       <div class="p-card__under">
+ *         <div class="p-card__price">4,950円(税10%込)</div>
+ *         <div class="p-card_date">2026年02月</div>
+ *       </div>
  *     </div>
  *   </a>
  *
@@ -113,23 +120,57 @@ async function detectMaxPage(page: Page): Promise<number> {
 }
 
 /**
+ * Extracts the pathname from a CloudFront signed URL, stripping the
+ * domain and query-string signature parameters.
+ *
+ * Input:  https://d3bk8pkqsprcvh.cloudfront.net/hobby/jp/product/2025/11/.../xxx.jpg?Expires=...
+ * Output: /hobby/jp/product/2025/11/.../xxx.jpg
+ *
+ * Non-CloudFront URLs are returned as-is.
+ */
+function extractImagePath(fullUrl: string): string {
+  if (!fullUrl) return '';
+  try {
+    const url = new URL(fullUrl);
+    if (url.hostname.includes('cloudfront.net')) {
+      return url.pathname;
+    }
+  } catch {
+    // not a valid URL, return as-is
+  }
+  return fullUrl;
+}
+
+/**
  * Extracts product info from all card elements on the current page.
+ *
+ * New architecture: cards include price and date directly, so we
+ * extract them here to avoid unnecessary detail page visits.
  */
 async function extractProductCardsFromPage(
   page: Page,
   baseUrl: string,
 ): Promise<BasicProductInfo[]> {
   const rawProducts = await page.evaluate(
-    ({ cardSelector, imageSelector }) => {
+    ({ cardSelector, imageSelector, nameSelector, priceSelector, dateSelector }) => {
       const cards = document.querySelectorAll(cardSelector);
-      const results: Array<{ name: string; imageUrl: string; productUrl: string }> = [];
+      const results: Array<{
+        name: string;
+        imageUrl: string;
+        productUrl: string;
+        priceText: string;
+        dateText: string;
+      }> = [];
 
       cards.forEach((card) => {
         const anchor = card as HTMLAnchorElement;
         const img = card.querySelector(imageSelector) as HTMLImageElement | null;
 
-        // Try multiple sources for the product name
+        // Product name: prefer the dedicated title element (new architecture),
+        // fall back to img alt / anchor text
+        const titleEl = card.querySelector(nameSelector);
         const name =
+          titleEl?.textContent?.trim() ||
           img?.alt?.trim() ||
           img?.getAttribute('title')?.trim() ||
           anchor.getAttribute('aria-label')?.trim() ||
@@ -146,8 +187,16 @@ async function extractProductCardsFromPage(
         // Product URL from the anchor href
         const productUrl = anchor.href || '';
 
+        // Price text (new architecture): e.g. "4,950円(税10%込)"
+        const priceEl = card.querySelector(priceSelector);
+        const priceText = priceEl?.textContent?.trim() || '';
+
+        // Release date text (new architecture): e.g. "2026年02月"
+        const dateEl = card.querySelector(dateSelector);
+        const dateText = dateEl?.textContent?.trim() || '';
+
         if (name && productUrl) {
-          results.push({ name, imageUrl, productUrl });
+          results.push({ name, imageUrl, productUrl, priceText, dateText });
         }
       });
 
@@ -156,13 +205,41 @@ async function extractProductCardsFromPage(
     {
       cardSelector: SELECTORS.productCard,
       imageSelector: SELECTORS.productImage,
+      nameSelector: SELECTORS.listName,
+      priceSelector: SELECTORS.listPrice,
+      dateSelector: SELECTORS.listDate,
     },
   );
 
-  // Resolve relative URLs
-  return rawProducts.map((p) => ({
-    name: p.name,
-    imageUrl: resolveUrl(p.imageUrl, baseUrl),
-    productUrl: resolveUrl(p.productUrl, baseUrl),
-  }));
+  // Parse and resolve URLs
+  return rawProducts.map((p) => {
+    const rawImageUrl = resolveUrl(p.imageUrl, baseUrl);
+
+    // Parse price: "4,950円(税10%込)" -> 4950
+    let price: number | undefined;
+    if (p.priceText) {
+      const priceMatch = p.priceText.replace(/,/g, '').match(/(\d+)\s*円/);
+      if (priceMatch) {
+        price = parseInt(priceMatch[1], 10);
+        if (isNaN(price)) price = undefined;
+      }
+    }
+
+    // Parse release date: "2026年02月" -> "2026-02"
+    let releaseDate: string | undefined;
+    if (p.dateText) {
+      const dateMatch = p.dateText.match(/(\d{4})年\s*(\d{1,2})月/);
+      if (dateMatch) {
+        releaseDate = `${dateMatch[1]}-${dateMatch[2].padStart(2, '0')}`;
+      }
+    }
+
+    return {
+      name: p.name,
+      imageUrl: extractImagePath(rawImageUrl),
+      productUrl: resolveUrl(p.productUrl, baseUrl),
+      ...(price !== undefined && { price }),
+      ...(releaseDate !== undefined && { releaseDate }),
+    };
+  });
 }

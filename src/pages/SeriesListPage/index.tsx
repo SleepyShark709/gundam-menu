@@ -4,6 +4,8 @@ import type { SeriesCode, GundamModel, FilterConfig, SortConfig } from '../../ty
 import Header from '../../components/Header';
 import ModelGrid from '../../components/ModelGrid';
 import ModelDetail from '../../components/ModelDetail';
+import CategoryTabs from '../../components/CategoryTabs';
+import type { TabType } from '../../components/CategoryTabs';
 import SearchBar from '../../design-system/SearchBar';
 import FilterPanel from '../../design-system/FilterPanel';
 import SortSelector from '../../design-system/SortSelector';
@@ -54,11 +56,13 @@ export default function SeriesListPage() {
   // Sort
   const [sortValue, setSortValue] = useState('number-asc');
 
+  // Tab
+  const [activeTab, setActiveTab] = useState<TabType>('regular');
+
   // Filter panel state
   const [filterOpen, setFilterOpen] = useState(false);
 
   // Filter config (not counting keyword - that's from search bar)
-  const [isLimitedFilter, setIsLimitedFilter] = useState<boolean | null>(null);
   const [releaseDateFrom, setReleaseDateFrom] = useState('');
   const [releaseDateTo, setReleaseDateTo] = useState('');
   const [numberFromStr, setNumberFromStr] = useState('');
@@ -83,10 +87,15 @@ export default function SeriesListPage() {
     setSelectedModel(null);
   }, []);
 
+  // Split models by limited/regular
+  const { regularModels, limitedModels } = useMemo(() => ({
+    regularModels: models.filter(m => !m.isLimited),
+    limitedModels: models.filter(m => m.isLimited),
+  }), [models]);
+
   const filterConfig: FilterConfig = useMemo(() => {
     const config: FilterConfig = {};
     if (debouncedKeyword) config.keyword = debouncedKeyword;
-    if (isLimitedFilter !== null) config.isLimited = isLimitedFilter;
     if (releaseDateFrom) config.releaseDateFrom = releaseDateFrom;
     if (releaseDateTo) config.releaseDateTo = releaseDateTo;
     const nFrom = parseInt(numberFromStr, 10);
@@ -94,13 +103,14 @@ export default function SeriesListPage() {
     if (!isNaN(nFrom)) config.numberFrom = nFrom;
     if (!isNaN(nTo)) config.numberTo = nTo;
     return config;
-  }, [debouncedKeyword, isLimitedFilter, releaseDateFrom, releaseDateTo, numberFromStr, numberToStr]);
+  }, [debouncedKeyword, releaseDateFrom, releaseDateTo, numberFromStr, numberToStr]);
 
   const processedModels = useMemo(() => {
-    const filtered = filterModels(models, filterConfig);
+    const tabModels = activeTab === 'regular' ? regularModels : limitedModels;
+    const filtered = filterModels(tabModels, filterConfig);
     const sortConfig = parseSortValue(sortValue);
     return sortModels(filtered, sortConfig);
-  }, [models, filterConfig, sortValue]);
+  }, [activeTab, regularModels, limitedModels, filterConfig, sortValue]);
 
   const filterIcon = (
     <button
@@ -138,6 +148,14 @@ export default function SeriesListPage() {
           />
         </div>
 
+        {/* Category tabs */}
+        <CategoryTabs
+          activeTab={activeTab}
+          onTabChange={setActiveTab}
+          regularCount={regularModels.length}
+          limitedCount={limitedModels.length}
+        />
+
         {/* Sort selector */}
         <div className={styles.sortWrapper}>
           <SortSelector
@@ -151,19 +169,6 @@ export default function SeriesListPage() {
         <FilterPanel open={filterOpen} onClose={() => setFilterOpen(false)}>
           <div className={styles.filterContent}>
             <h3 className={styles.filterTitle}>筛选条件</h3>
-
-            {/* Limited toggle */}
-            <div className={styles.filterRow}>
-              <label className={styles.filterLabel}>仅限定品</label>
-              <button
-                className={[styles.toggle, isLimitedFilter === true ? styles.toggleActive : ''].join(' ')}
-                onClick={() => setIsLimitedFilter(isLimitedFilter === true ? null : true)}
-                type="button"
-                aria-pressed={isLimitedFilter === true}
-              >
-                {isLimitedFilter === true ? '已启用' : '关闭'}
-              </button>
-            </div>
 
             {/* Release date range */}
             <div className={styles.filterGroup}>
@@ -221,7 +226,6 @@ export default function SeriesListPage() {
             <button
               className={styles.resetButton}
               onClick={() => {
-                setIsLimitedFilter(null);
                 setReleaseDateFrom('');
                 setReleaseDateTo('');
                 setNumberFromStr('');
