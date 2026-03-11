@@ -1,5 +1,5 @@
 import { useEffect, type ReactNode } from 'react';
-import { AnimatePresence, motion, useMotionValue, useTransform } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 import styles from './styles.module.css';
 
 interface BottomSheetProps {
@@ -10,8 +10,6 @@ interface BottomSheetProps {
 }
 
 export default function BottomSheet({ open, onClose, children, title }: BottomSheetProps) {
-  const y = useMotionValue(0);
-
   // Lock body scroll when open
   useEffect(() => {
     if (!open) return;
@@ -30,13 +28,6 @@ export default function BottomSheet({ open, onClose, children, title }: BottomSh
       window.scrollTo(0, scrollY);
     };
   }, [open]);
-  const opacity = useTransform(y, [0, 200], [1, 0]);
-
-  function handleDragEnd(_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { y: number } }) {
-    if (info.offset.y > 100) {
-      onClose();
-    }
-  }
 
   return (
     <AnimatePresence>
@@ -51,7 +42,6 @@ export default function BottomSheet({ open, onClose, children, title }: BottomSh
             transition={{ duration: 0.25 }}
             onClick={onClose}
             aria-hidden="true"
-            style={{ opacity }}
           />
 
           {/* Sheet */}
@@ -61,20 +51,10 @@ export default function BottomSheet({ open, onClose, children, title }: BottomSh
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ type: 'spring', stiffness: 380, damping: 38, mass: 0.8 }}
-            drag="y"
-            dragConstraints={{ top: 0 }}
-            dragElastic={{ top: 0, bottom: 0.4 }}
-            onDragEnd={handleDragEnd}
-            style={{ y }}
             role="dialog"
             aria-modal="true"
             aria-label={title ?? '操作面板'}
           >
-            {/* Drag handle */}
-            <div className={styles.handleArea} aria-hidden="true">
-              <div className={styles.handle} />
-            </div>
-
             {/* Header */}
             {title && (
               <div className={styles.header}>
