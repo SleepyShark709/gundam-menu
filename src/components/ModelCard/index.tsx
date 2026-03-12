@@ -1,12 +1,21 @@
 import { useState } from 'react';
-import type { GundamModel } from '../../types';
+import type { GundamModel, LimitedType } from '../../types';
 import Badge from '../../design-system/Badge';
+import type { BadgeVariant } from '../../design-system/Badge';
 import Skeleton from '../../design-system/Skeleton';
 import FavoriteButton from '../FavoriteButton';
 import PriceDisplay from '../PriceDisplay';
 import { getImageProps, refreshSignedUrl } from '../../utils/image';
 import { formatDate } from '../../utils/format';
 import styles from './styles.module.css';
+
+const LIMITED_BADGE_CONFIG: Record<LimitedType, { label: string; variant: BadgeVariant }> = {
+  pbandai: { label: 'P-Bandai', variant: 'pbandai' },
+  gbase:   { label: '高达基地', variant: 'gbase' },
+  event:   { label: '活动限定', variant: 'event' },
+  sidef:   { label: 'SIDE-F', variant: 'sidef' },
+  other:   { label: '限定', variant: 'danger' },
+};
 
 interface ModelCardProps {
   model: GundamModel;
@@ -96,7 +105,9 @@ export default function ModelCard({
         {/* Limited badge */}
         {model.isLimited && (
           <div className={styles.limitedBadge}>
-            <Badge variant="danger">限定</Badge>
+            <Badge variant={LIMITED_BADGE_CONFIG[model.limitedType ?? 'other'].variant}>
+              {LIMITED_BADGE_CONFIG[model.limitedType ?? 'other'].label}
+            </Badge>
           </div>
         )}
 

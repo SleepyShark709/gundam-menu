@@ -22,3 +22,27 @@
   color: var(--color-accent-danger);
   border: 1px solid rgba(255, 51, 102, 0.3);
 }
+
+.pbandai {
+  background: rgba(0, 113, 227, 0.15);
+  color: var(--color-badge-pbandai);
+  border: 1px solid rgba(0, 113, 227, 0.3);
+}
+
+.gbase {
+  background: rgba(255, 149, 0, 0.15);
+  color: var(--color-badge-gbase);
+  border: 1px solid rgba(255, 149, 0, 0.3);
+}
+
+.event {
+  background: rgba(175, 82, 222, 0.15);
+  color: var(--color-badge-event);
+  border: 1px solid rgba(175, 82, 222, 0.3);
+}
+
+.sidef {
+  background: rgba(48, 176, 199, 0.15);
+  color: var(--color-badge-sidef);
+  border: 1px solid rgba(48, 176, 199, 0.3);
+}
