@@ -1,0 +1,57 @@
+.container {
+  overflow: hidden;
+  flex-shrink: 0;
+  padding: 0 var(--spacing-md);
+}
+
+.scrollArea {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0 12px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scrollArea::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.pill:active {
+  opacity: 0.7;
+}
+
+.pillActive {
+  background: #0071e3;
+  color: #fff;
+}
+
+.pillDisabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.pillDisabled:active {
+  opacity: 0.35;
+}
+
+.pillCount {
+  font-weight: 400;
+}

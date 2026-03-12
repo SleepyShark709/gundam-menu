@@ -6,6 +6,8 @@ import ModelGrid from '../../components/ModelGrid';
 import ModelDetail from '../../components/ModelDetail';
 import CategoryTabs from '../../components/CategoryTabs';
 import type { TabType } from '../../components/CategoryTabs';
+import LimitedSubFilter from '../../components/LimitedSubFilter';
+import type { LimitedSubFilterValue } from '../../components/LimitedSubFilter';
 import SearchBar from '../../design-system/SearchBar';
 import FilterPanel from '../../design-system/FilterPanel';
 import SortSelector from '../../design-system/SortSelector';
@@ -58,6 +60,9 @@ export default function SeriesListPage() {
 
   // Tab
   const [activeTab, setActiveTab] = useState<TabType>('regular');
+
+  // Limited sub-filter
+  const [limitedSubFilter, setLimitedSubFilter] = useState<LimitedSubFilterValue>('all');
 
   // Filter panel state
   const [filterOpen, setFilterOpen] = useState(false);
@@ -125,10 +130,13 @@ export default function SeriesListPage() {
 
   const processedModels = useMemo(() => {
     const tabModels = activeTab === 'regular' ? regularModels : limitedModels;
-    const filtered = filterModels(tabModels, filterConfig);
+    const subFiltered = activeTab === 'limited' && limitedSubFilter !== 'all'
+      ? tabModels.filter(m => (m.limitedType ?? 'other') === limitedSubFilter)
+      : tabModels;
+    const filtered = filterModels(subFiltered, filterConfig);
     const sortConfig = parseSortValue(sortValue);
     return sortModels(filtered, sortConfig);
-  }, [activeTab, regularModels, limitedModels, filterConfig, sortValue]);
+  }, [activeTab, regularModels, limitedModels, limitedSubFilter, filterConfig, sortValue]);
 
   const filterIcon = (
     <button
@@ -172,6 +180,14 @@ export default function SeriesListPage() {
           onTabChange={setActiveTab}
           regularCount={regularModels.length}
           limitedCount={limitedModels.length}
+        />
+
+        {/* Limited sub-filter */}
+        <LimitedSubFilter
+          value={limitedSubFilter}
+          onChange={setLimitedSubFilter}
+          models={limitedModels}
+          visible={activeTab === 'limited'}
         />
 
         {/* Sort selector */}
