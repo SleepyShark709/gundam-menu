@@ -1,5 +1,7 @@
 export type SeriesCode = 'hg' | 'rg' | 'mg' | 'pg';
 
+export type LimitedType = 'pbandai' | 'gbase' | 'event' | 'sidef' | 'other';
+
 export interface GundamModel {
   id: string;
   series: SeriesCode;
@@ -11,6 +13,7 @@ export interface GundamModel {
   priceTaxFree: number;
   releaseDate: string;
   isLimited: boolean;
+  limitedType?: LimitedType;
   imageUrl: string;
   productUrl: string;
   tags?: string[];

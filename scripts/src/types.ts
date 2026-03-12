@@ -8,6 +8,8 @@
 
 export type SeriesCode = 'hg' | 'rg' | 'mg' | 'pg';
 
+export type LimitedType = 'pbandai' | 'gbase' | 'event' | 'sidef' | 'other';
+
 // ---------------------------------------------------------------------------
 // Phase 1: Listing page data
 // ---------------------------------------------------------------------------
@@ -54,6 +56,7 @@ export interface GundamModel {
   priceTaxFree: number;   // price / 1.1, rounded to integer
   releaseDate: string;    // "YYYY-MM" or ""
   isLimited: boolean;
+  limitedType?: LimitedType;  // 限定子类型（通贩不设此字段）
   imageUrl: string;
   productUrl: string;
 }
