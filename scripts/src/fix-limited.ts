@@ -17,6 +17,7 @@
 import * as fs from 'fs/promises';
 import * as path from 'path';
 import { fileURLToPath } from 'url';
+import type { LimitedType } from './types.js';
 
 // ---------------------------------------------------------------------------
 // Path resolution
@@ -44,6 +45,7 @@ interface GundamModel {
   priceTaxFree: number;
   releaseDate: string;
   isLimited: boolean;
+  limitedType?: LimitedType;
   imageUrl: string;
   productUrl: string;
   _limitedSource?: string;
@@ -52,6 +54,7 @@ interface GundamModel {
 
 interface LimitedResult {
   isLimited: boolean;
+  limitedType?: LimitedType;
   source: string;
 }
 
@@ -67,55 +70,72 @@ interface LimitedResult {
  * (which is just the P-Bandai brand name, not a product characteristic).
  * The regex uses a negative lookahead to handle this.
  */
-const NAME_KEYWORD_RULES: Array<[RegExp, string]> = [
-  // --- Exclusion-limited terms ---
-  [/限定/, '限定'],
-  [/ベース限定/, 'ベース限定'],
-  [/SIDE-F限定/, 'SIDE-F限定'],
+const NAME_KEYWORD_RULES: Array<[RegExp, LimitedType, string]> = [
+  // --- Channel-specific (highest specificity) ---
+  [/SIDE-F限定|SIDE-F/, 'sidef', 'SIDE-F'],
+  [/ベース限定|ガンダムベース/, 'gbase', 'ガンダムベース'],
+  [/イベント限定/, 'event', 'イベント限定'],
+  [/プレミアムバンダイ限定|P-Bandai/, 'pbandai', 'P-Bandai(名称)'],
 
-  // --- Clear / coating / metallic finishes ---
-  [/クリアカラー/, 'クリアカラー'],
-  [/カラークリア/, 'カラークリア'],
-  [/メッキ/, 'メッキ'],
-  [/メタリック/, 'メタリック'],
-  [/チタニウム/, 'チタニウム'],
-  [/スペシャルコーティング/, 'スペシャルコーティング'],
-  [/コーティング/, 'コーティング'],
-  [/パールグロス/, 'パールグロス'],
-  [/グロスインジェクション/, 'グロスインジェクション'],
-  [/トランザムクリア/, 'トランザムクリア'],
-  [/トランザム[\s　]*\]|トランザム\s*Ver/, 'トランザム'],
-  [/コントラストカラー/, 'コントラストカラー'],
+  // --- Generic "限定" catch-all (after specific channels) ---
+  [/限定/, 'other', '限定'],
+
+  // --- Special coating / finishes ---
+  [/クリアカラー/, 'other', 'クリアカラー'],
+  [/カラークリア/, 'other', 'カラークリア'],
+  [/メッキ/, 'other', 'メッキ'],
+  [/メタリック/, 'other', 'メタリック'],
+  [/チタニウム/, 'other', 'チタニウム'],
+  [/スペシャルコーティング/, 'other', 'スペシャルコーティング'],
+  [/コーティング/, 'other', 'コーティング'],
+  [/パールグロス/, 'other', 'パールグロス'],
+  [/グロスインジェクション/, 'other', 'グロスインジェクション'],
+  [/トランザムクリア/, 'other', 'トランザムクリア'],
+  [/トランザム[\s　]*\]|トランザム\s*Ver/, 'other', 'トランザム'],
+  [/コントラストカラー/, 'other', 'コントラストカラー'],
 
   // --- Premium (exclude standalone "プレミアムバンダイ") ---
-  [/プレミアム(?!バンダイ)/, 'プレミアム'],
+  [/プレミアム(?!バンダイ)/, 'other', 'プレミアム'],
 
   // --- Sets / memorial ---
-  [/メモリアルセット/, 'メモリアルセット'],
-  [/記念セット/, '記念セット'],
+  [/メモリアルセット/, 'other', 'メモリアルセット'],
+  [/記念セット/, 'other', '記念セット'],
 
   // --- Special versions ---
-  [/Ver\.GFT/, 'Ver.GFT'],
-  [/Ver\.TWC/, 'Ver.TWC'],
-  [/Ver\.GCP/, 'Ver.GCP'],
+  [/Ver\.GFT/, 'other', 'Ver.GFT'],
+  [/Ver\.TWC/, 'other', 'Ver.TWC'],
+  [/Ver\.GCP/, 'other', 'Ver.GCP'],
 
   // --- Collaboration / special MS ---
-  [/初音ミク/, '初音ミク'],
-  [/RX-93ff/, 'RX-93ff'],
-  [/MSN-04FF/, 'MSN-04FF'],
+  [/初音ミク/, 'other', '初音ミク'],
+  [/RX-93ff/, 'other', 'RX-93ff'],
+  [/MSN-04FF/, 'other', 'MSN-04FF'],
 ];
 
 // ---------------------------------------------------------------------------
 // Manual override map (loaded once)
 // ---------------------------------------------------------------------------
 
-let manualOverrides: Record<string, boolean> = {};
+interface ManualOverride {
+  isLimited: boolean;
+  limitedType?: LimitedType;
+}
+
+let manualOverrides: Record<string, ManualOverride> = {};
 
 async function loadManualOverrides(): Promise<void> {
   try {
     const raw = await fs.readFile(MANUAL_MAP_PATH, 'utf-8');
-    const data = JSON.parse(raw) as { overrides: Record<string, boolean> };
-    manualOverrides = data.overrides ?? {};
+    const data = JSON.parse(raw) as { overrides: Record<string, boolean | ManualOverride> };
+    const rawOverrides = data.overrides ?? {};
+    manualOverrides = {};
+    for (const [url, value] of Object.entries(rawOverrides)) {
+      if (typeof value === 'boolean') {
+        manualOverrides[url] = { isLimited: value, limitedType: value ? 'other' : undefined };
+      } else {
+        manualOverrides[url] = value;
+      }
+    }
     const count = Object.keys(manualOverrides).length;
     if (count > 0) {
       console.log(`已加载手动映射表: ${count} 条覆盖规则`);
@@ -138,33 +158,36 @@ async function loadManualOverrides(): Promise<void> {
  */
 function detectLimited(product: GundamModel): LimitedResult {
   const { productUrl } = product;
-  // Use Japanese name for keyword matching (name may already be translated to Chinese)
   const nameForMatch = product.nameJa || product.name;
 
   // Rule 0: Manual override (highest priority)
   if (productUrl in manualOverrides) {
-    const isLimited = manualOverrides[productUrl];
-    return { isLimited, source: isLimited ? '手动标注:限定' : '手动标注:通贩' };
+    const override = manualOverrides[productUrl];
+    return {
+      isLimited: override.isLimited,
+      limitedType: override.isLimited ? (override.limitedType ?? 'other') : undefined,
+      source: override.isLimited ? `手动标注:限定(${override.limitedType ?? 'other'})` : '手动标注:通贩',
+    };
   }
 
   // Rule 1: P-Bandai domain
   if (productUrl.includes('p-bandai.jp')) {
-    return { isLimited: true, source: 'URL域名:P-Bandai' };
+    return { isLimited: true, limitedType: 'pbandai', source: 'URL域名:P-Bandai' };
   }
 
   // Rule 2: Gundam Base domain
   if (productUrl.includes('gundam-base.net')) {
-    return { isLimited: true, source: 'URL域名:GundamBase' };
+    return { isLimited: true, limitedType: 'gbase', source: 'URL域名:GundamBase' };
   }
 
-  // Rule 3: Name keywords (match against Japanese name)
-  for (const [pattern, label] of NAME_KEYWORD_RULES) {
+  // Rule 3-8: Name keywords (first-match-wins, specific before generic)
+  for (const [pattern, limitedType, label] of NAME_KEYWORD_RULES) {
     if (pattern.test(nameForMatch)) {
-      return { isLimited: true, source: `名称关键词:${label}` };
+      return { isLimited: true, limitedType, source: `名称关键词:${label}` };
     }
   }
 
-  // Rule 4: Default -- not limited
+  // Rule 9: Default -- not limited
   return { isLimited: false, source: '' };
 }
 
@@ -178,6 +201,7 @@ interface SeriesStats {
   regular: number;
   limited: number;
   sources: Record<string, number>;
+  typeDistribution: Record<string, number>;
 }
 
 /**
@@ -215,6 +239,7 @@ async function processSeries(
       id: newId,
       number: idx + 1,
       isLimited: false,
+      limitedType: undefined,
       _limitedSource: '',
       _limitedMethod: 'method_a',
     };
@@ -231,6 +256,7 @@ async function processSeries(
       id: newId,
       number: idx + 1,
       isLimited: true,
+      limitedType: c.limitedType,
       _limitedSource: c.source,
       _limitedMethod: 'method_a',
     };
@@ -248,6 +274,12 @@ async function processSeries(
     sources[c.source] = (sources[c.source] || 0) + 1;
   }
 
+  const typeDistribution: Record<string, number> = {};
+  for (const c of limiteds) {
+    const lt = c.limitedType ?? 'other';
+    typeDistribution[lt] = (typeDistribution[lt] || 0) + 1;
+  }
+
   return {
     stats: {
       series,
@@ -255,6 +287,7 @@ async function processSeries(
       regular: regulars.length,
       limited: limiteds.length,
       sources,
+      typeDistribution,
     },
     migrationMap,
   };
@@ -317,6 +350,14 @@ async function main(): Promise<void> {
       const sorted = Object.entries(stats.sources).sort((a, b) => b[1] - a[1]);
       for (const [source, count] of sorted) {
         console.log(`    ${source}: ${count}`);
+      }
+    }
+
+    if (Object.keys(stats.typeDistribution).length > 0) {
+      console.log('  限定类型分布:');
+      const sortedTypes = Object.entries(stats.typeDistribution).sort((a, b) => b[1] - a[1]);
+      for (const [type, count] of sortedTypes) {
+        console.log(`    ${type}: ${count}`);
       }
     }
   }
